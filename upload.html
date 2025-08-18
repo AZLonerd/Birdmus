@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MP3 Visualizer</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background: #111;
+            color: white;
+            position: relative
+        }
+
+        .upload-select {
+            width: 120px;
+            height: 120px;
+            border: 2px dashed #555;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+
+        .upload-result {
+            margin-top: 10px;
+        }
+
+        canvas {
+            width: 100%;
+            height: 400px;
+            background: black;
+            display: none;
+        }
+
+        audio {
+            display: none;
+        }
+
+        #playBtn {
+            padding: 10px 20px;
+            font-size: 18px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 15%;
+            background-color: blue;
+            border-radius: 10%;
+        }
+
+        .bar {
+            width: 5%;
+            height: 100%;
+            background-color: green;
+            animation-name: bar;
+            animation-iteration-count: 1;
+            animation-duration: 5s;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes bar {
+            to {
+                width: 100%;
+            }
+        }
+
+        .music-progress-bar {
+            position: relative;
+            height: 50px;
+            width: 300px;
+            background-color: #0096FF
+        }
+
+        .percentage {
+            --percent-value: 0%;
+            position: absolute;
+            height: 100%;
+            width: var(--percent-value);
+            background-color: #D3D3D3
+        }
+
+        #HomepageBtn {
+            width: 200px;
+            height: 40px;
+            background-color: rgb(0, 0, 0, 0.8);
+            transition: 0.3s;
+            font-weight: 800;
+            color: gold;
+        }
+
+        #HomepageBtn:hover {
+            cursor: pointer;
+            background-color: grey;
+        }
+
+        /* Centered modal */
+        .finish-page {
+            position: fixed;
+            top: -30%;
+            /* start off-screen */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 320px;
+            background: #2c2c2c;
+            color: #fff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            display: none;
+            /* hidden until shown */
+            animation: finishpageanimation 0.6s forwards;
+        }
+
+        /* Text */
+        .finish-page p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Button styling */
+        .finish-page button {
+            padding: 10px 20px;
+            background: #4cafef;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin: auto;
+            display: block;
+        }
+
+        .finish-page button:hover {
+            background: #2196f3;
+            transform: translateY(-2px);
+        }
+
+        /* Animation (slide down only) */
+        @keyframes finishpageanimation {
+            from {
+                top: -30%;
+                opacity: 0;
+            }
+
+            to {
+                top: 20%;
+                opacity: 1;
+            }
+        }
+
+        .tutorialbtn {
+            width: 120px;
+            height: 50px;
+            color: gold;
+            background-color: rgb(59, 59, 59);
+            font-weight: 800;
+
+        }
+
+        .tutorialbtn:hover {
+            cursor: pointer;
+            color: darkcyan;
+            background-color: rgb(59, 59, 59);
+            font-weight: 800;
+
+        }
+
+        .exclaimation {
+            display: inline-block;
+            color: red;
+            margin-right: 10px;
+            animation: swing 2s infinite ease-in-out;
+
+        }
+
+        .mustbe {
+            color: white;
+            font-weight: 600;
+            margin: auto;
+            width: fit-content;
+        }
+
+        @keyframes swing {
+            0% {
+                transform: rotate(15deg);
+            }
+
+            50% {
+                transform: rotate(-15deg);
+            }
+
+            100% {
+                transform: rotate(15deg);
+            }
+        }
+
+        .gameover .container {
+            display: block;
+        }
+    </style>
+    <link rel="stylesheet" href="upload.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="upload select">
+        <div class="upload-select" id="uploadBox" style="margin:auto">
+            <p class="plus-icon">+</p>
+            <input class="inputbox" type="file" accept=".mp3,audio/*" hidden />
+            <div class="progress-bar" style="display:none">
+                <div class="bar"></div>
+                <p>loading</p>
+            </div>
+        </div>
+
+        <div class="introduction" style="margin:auto; width:fit-content;margin-top: 50px">upload your favorite
+            music to
+            get started</div>
+        <div class="mustbe">⚠️Warning:must be .mp3 file</div>
+        <div class="tutorial-container" style="width:fit-content; position: relative; left:80%; top:-100px">
+            <button class="tutorialbtn"><span class="exclaimation">!!</span>tutorial</button>
+            <div class="tutorial" style="display: none;">
+
+                <div class="container2" style=" background-color: blue;">
+                    <div class="allslide">
+                        <div class="slide">
+                            <img src="wasd.PNG" width="200px" height="200px" />
+                        </div>
+                        <div class="slide">
+                            <img src="soundwavefinal.PNG" width="200px" height="200px" />
+                        </div>
+                        <div class="slide">
+                            <img src="dodge final.PNG" width="200px" height="200px" />
+                        </div>
+                    </div>
+
+                    <div class="indicator">
+                        <span class="active"></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="upload-result"></div>
+        <div style="display:none" class="pause-container">
+            <div class="pause-icon">
+                <i class="fa-solid fa-pause"></i>
+            </div>
+
+        </div>
+
+        <div style="display: none;" class="resume-icon">
+            <i class="fa-solid fa-play"></i>
+        </div>
+
+
+    </div>
+
+    <div class="gameover" style="display:none; height:auto;">
+
+        <div class="container" style="padding: 1px;">
+            <h2 class="gameover-text">Game over</h2>
+            <p style="margin-top: 80px" class="percentdone"></p>
+            <button id="restart-game">Restart game</button>
+        </div>
+
+    </div>
+
+    <div class="pause-page">
+
+        <div class="pause-page-instruction">
+            <p>you paused the game</p>
+        </div>
+        <div class="button-container" style="display: block;">
+            <div class="pausebtn">
+                <button class="pause-restartbtn" id="restart-game3">Restart game</button>
+            </div>
+
+
+            <div class="pausebtn">
+                <button class="resume-gamebtn">Resume game</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="finish-page" style="display: none;background-color: gray;">
+        <p>Congrats! you finished the sound track!</p>
+        <div style="display:flex">
+            <button id="restart-game2">Restart game</button>
+        </div>
+
+    </div>
+
+    <canvas>
+
+    </canvas>
+
+    <audio></audio>
+    <!-- music play progress bar -->
+
+    <div class="containerforcanvaspage">
+        <div><button id="playBtn">▶️ Play Music</button></div>
+        <div class="progress-container" style="display: flex;">
+            <div style="display: none;" class="music-progress-bar">
+                <div class="percentage"></div>
+            </div>
+            <div class="progress-bar-finish" style="display: none;">Finish</div>
+        </div>
+
+        <div class="gobacktohomecontainer">
+            <button id="HomepageBtn" style="display: none">
+                go back to Home page
+            </button>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+
+
+    <script>
+        const fileInput = document.querySelector(".inputbox");
+        const uploadBox = document.getElementById("uploadBox");
+        const resultBox = document.querySelector(".upload-result");
+        const canvas = document.querySelector("canvas");
+        const ctx = canvas.getContext("2d");
+        const audio = document.querySelector("audio");
+        const playBtn = document.getElementById("playBtn");
+        const bar = document.querySelector(".progress-bar")
+        const plus = document.querySelector(".plus-icon")
+
+        const music_progress_bar = document.querySelector(".music-progress-bar")
+        console.log(music_progress_bar)
+        const pause_page = document.querySelector(".pause-page")
+        const mustbe = document.querySelector(".mustbe")
+
+
+        const resumebutton = document.querySelector(".resume-gamebtn")
+
+
+        const tutorial = document.querySelector(".tutorial")
+        const tutorialbtn = document.querySelector(".tutorialbtn")
+
+        const introduction = document.querySelector(".introduction")
+        const progressFinish = document.querySelector(".progress-bar-finish")
+        tutorialbtn.addEventListener("click", () => {
+            if (tutorial.style.display === "block") {
+                tutorial.style.display = "none";
+                tutorialbtn.innerHTML = "tutorial";
+                tutorialbtn.classList.remove("closebtn");
+            } else {
+                tutorial.style.display = "block";
+                tutorialbtn.innerHTML = "close";
+                tutorialbtn.classList.add("closebtn");
+            }
+        });
+
+
+
+
+        let shouldWarn = true; // Change this when progress is saved
+
+        window.addEventListener("beforeunload", function (event) {
+            if (shouldWarn) {
+                event.preventDefault();
+                audio.pause();
+
+                event.returnValue = '';
+
+            }
+        });
+
+        const moveSpeed = 3;
+        let isInit = false;
+        let analyzer, dataArray;
+        let stopped = false;
+
+        let interval1
+
+        let percentcalculation
+        const percentage = document.querySelector(".percentage")
+        const finishpage = document.querySelector(".finish-page")
+
+
+
+        const progressContainer = document.querySelector(".progress-container")
+
+
+        const slides = document.querySelectorAll('.slide');
+        const indicatorSpans = document.querySelectorAll('.indicator span');
+        const allslide = document.querySelector('.allslide');
+
+        let currentIndex = 0;
+
+        let percentagetodisplay = 0;
+        const totalSlides = slides.length;
+
+        function updateSlider() {
+            allslide.style.transform = `translateX(${-currentIndex * 200}px)`;
+
+            indicatorSpans.forEach((span, idx) => {
+                span.classList.toggle('active', idx === currentIndex);
+            });
+        }
+
+        indicatorSpans.forEach((span, index) => {
+            span.addEventListener("click", () => {
+                currentIndex = index;
+                updateSlider();
+            })
+        })
+
+        function setMusicprogressbar() {
+
+
+            percentcalculation = audio.currentTime / audio.duration * 100
+
+            percentage.style.setProperty("--percent-value", `${percentcalculation}%`)
+
+
+            if (!audio.paused && !audio.ended) {
+                requestAnimationFrame(setMusicprogressbar);
+            }
+            percentagetodisplay = percentcalculation
+
+
+        }
+
+
+        let audioDuration;
+        const repeatedTimes = Math.floor(audioDuration / 5) + 1;
+
+        let bar5width = 30;
+
+        const pauseicon = document.querySelector(".pause-container")
+        const resumeicon = document.querySelector(".resume-icon")
+
+
+        let bulletbar = [];
+
+
+        resumebutton.addEventListener("click", () => {
+            pause_page.style.display = "none";
+            pauseicon.style.display = "block"
+            resumeicon.style.display = "none"
+            startinterval();
+            requestAnimationFrame(setMusicprogressbar)
+            audio.play();
+        })
+
+        pauseicon.addEventListener("click", () => {
+            audio.pause()
+            resumeicon.style.display = "block"
+            pauseicon.style.display = "none"
+            pause_page.style.display = "block"
+
+
+            clearInterval(interval1);
+
+
+        })
+
+
+
+
+        function initCanvas() {
+            canvas.width = window.innerWidth * devicePixelRatio;
+            canvas.height = 400 * devicePixelRatio;
+        }
+
+        initCanvas();
+
+        uploadBox.addEventListener("click", () => fileInput.click());
+
+        fileInput.addEventListener("input", () => {
+            bar.style.display = "block";
+            plus.style.display = "none";
+        });
+
+        fileInput.addEventListener("change", () => {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            const name = file.name.toLowerCase();
+            const isMp3 = name.endsWith(".mp3");
+            const isAudio = file.type.startsWith("audio/");
+            const maxSize = 10 * 1024 * 1024;
+
+            if (!isMp3 || !isAudio) {
+                resultBox.textContent = "File must be a valid .mp3 audio.";
+                return;
+            }
+
+            if (file.size > maxSize) {
+                resultBox.textContent = `File too large. Max 10MB. Your file: ${(file.size / 1024 / 1024).toFixed(2)}MB`;
+                return;
+            }
+
+            setTimeout(() => {
+                const audioURL = URL.createObjectURL(file);
+                audio.src = audioURL;
+                resultBox.textContent = `✅ Ready: ${file.name}`;
+            }, 5000);
+        });
+
+
+
+        audio.addEventListener('canplaythrough', () => {
+            console.log('✅ File fully loaded and ready to play!');
+            homebtn.style.display = "block"
+            tutorial.style.display = "none"
+            canvas.style.display = 'block';
+            introduction.style.display = "none"
+
+            uploadBox.style.display = "none";
+            playBtn.style.display = "inline-block";
+            resultBox.style.display = "block"
+            mustbe.style.display = "none"
+        });
+
+        playBtn.addEventListener("click", () => {
+            music_progress_bar.style.display = "inline-block"
+            music_progress_bar.style.marginRight = "auto"
+            progressContainer.style.marginRight = "auto"
+            progressFinish.style.display = "block"
+
+
+            startinterval();
+            audioDuration = audio.duration;
+            pauseicon.style.display = "block"
+            audio.play();
+            setMusicprogressbar()
+
+            playBtn.style.display = "none";
+        });
+
+
+
+        const homebtn = document.getElementById("HomepageBtn")
+
+
+        homebtn.addEventListener('click', gobacktohomepage);
+
+        function gobacktohomepage() {
+            audio.pause();
+            audio.currentTime = 0;
+
+            fileInput.value = '';
+            progressFinish.style.display = "none"
+
+            if (tutorialbtn.classList.contains("closebtn")) {
+                tutorialbtn.textContent = "tutorial";
+            }
+            tutorialbtn.style.display = "block";
+            tutorial.style.display = "none";
+
+
+            canvas.style.display = 'none';
+            introduction.style.display = "block";
+
+            uploadBox.style.display = "flex";
+            playBtn.style.display = "none";
+
+            bar.style.display = "none";
+            plus.style.display = "block";
+            pauseicon.style.display = "none";
+            resumeicon.style.display = "none";
+            music_progress_bar.style.display = "none";
+            resultBox.style.display = "none";
+            homebtn.style.display = "none";
+            finishpage.style.display = "none";
+            pause_page.style.display = "none";
+            bullets = []
+            clearInterval(interval1)
+
+            audio.src = "";
+            audio.load();
+        }
+
+        audio.onplay = function () {
+            if (isInit) return;
+
+
+
+            const audCtx = new AudioContext();
+            const source = audCtx.createMediaElementSource(audio);
+
+            analyzer = audCtx.createAnalyser();
+            analyzer.fftSize = 512;
+            dataArray = new Uint8Array(analyzer.frequencyBinCount);
+
+            source.connect(analyzer);
+            analyzer.connect(audCtx.destination);
+
+            isInit = true;
+        };
+
+        function random(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function lerp(a, b, t) {
+            return a + (b - a) * t;
+        }
+
+        class Point {
+            constructor() {
+                this.r = 4;
+                this.x = random(100, canvas.width - 100);
+                this.y = random(100, canvas.height - 200);
+                this.tx = this.x;
+                this.ty = this.y;
+            }
+
+            update() {
+                this.x = lerp(this.x, this.tx, 0.005);
+                this.y = lerp(this.y, this.ty, 0.005);
+                const dx = this.tx - this.x;
+                const dy = this.ty - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 1) {
+                    const range = 40;
+                    this.tx = this.x + random(-range, range);
+                    this.ty = this.y + random(-range, range);
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+                ctx.fillStyle = "white";
+                ctx.fill();
+            }
+        }
+
+        class Graph {
+            constructor(count = 60) {
+                this.points = new Array(count).fill(0).map(() => new Point());
+            }
+
+            update() {
+                this.points.forEach(p => p.update());
+            }
+
+            draw() {
+                this.points.forEach(p => p.draw());
+            }
+        }
+
+        const g = new Graph(40);
+
+        const birdimg = new Image();
+        birdimg.src = "./birdimg2.png";
+        let birdLoaded = false;
+        birdimg.onload = () => {
+            birdLoaded = true;
+        };
+
+        const bird = {
+            x: canvas.width / 8,
+            y: canvas.height / 2,
+            width: 40,
+            height: 40
+        };
+
+        const keys = { w: false, a: false, s: false, d: false };
+        document.addEventListener('keydown', (e) => {
+            if (e.key in keys) keys[e.key] = true;
+        });
+        document.addEventListener('keyup', (e) => {
+            if (e.key in keys) keys[e.key] = false;
+        });
+
+        function isColliding(rect1, rect2) {
+            return (
+                rect1.x < rect2.x + rect2.width &&
+                rect1.x + rect1.width > rect2.x &&
+                rect1.y < rect2.y + rect2.height &&
+                rect1.y + rect1.height > rect2.y
+            );
+        }
+
+
+
+        function startinterval() {
+            if (audio.play()) {
+                interval1 = setInterval(() => {
+                    if (stopped) return;
+                    if (bar5width < canvas.width / 2) {
+                        bar5width += 3;
+                    }
+
+                    // move y upward as height grows
+                }, 1000);
+            }
+        }
+
+
+
+
+        let bulletx = 0
+
+        let lastBulletSpawnTime = 0;
+        let bulletSpawnInterval = 8;
+
+        let climax
+        let bulletfrequencytriggered = true;
+
+        let bulletfrequencyinterval = 10;
+        let lastfrequencyTime = 0
+        let baseSpeed = 0.5;
+        let baseDiagSpeed = 0.3;
+        let bullets = []
+        let initialinit = true;
+
+        let climaxoverlast3s = []
+        let checkevery1s = 0.6;
+        let lastchecktime = 0
+
+
+        let ifclimaxreached = false;
+        let ifclimaxreachedinterval = 5;
+
+        let animationFrameId;
+        function restartgame() {
+            cancelAnimationFrame(animationFrameId);
+            music_progress_bar.style.display = "none";
+            pauseicon.style.display = "none";
+            resumeicon.style.display = "none";
+            document.querySelector(".gameover").style.display = "none";
+            if (pause_page) pause_page.style.display = "none";
+            playBtn.style.display = "inline-block";
+
+            progressFinish.style.display = "none"
+
+            clearInterval(interval1);
+            stopped = false;
+            baseSpeed = 0.5
+            baseDiagSpeed = 0.3;
+            clearBullets();
+            bulletx = 0;
+            lastBulletSpawnTime = 0;
+            bulletSpawnInterval = 8;
+            climax = 0;
+            bulletfrequencytriggered = true;
+            lastfrequencyTime = 0;
+            bulletfrequencyinterval = 10;
+            initialinit = true;
+
+
+            climaxoverlast3s = []
+            checkevery1s = 1;
+            lastchecktime = 0
+
+            bullets = [];
+
+            ifclimaxreached = false;
+            ifclimaxreachedinterval = 5;
+
+            bird.x = canvas.width / 8;
+            bird.y = canvas.height / 2;
+            bar5width = 30;
+
+
+            audio.pause();
+            audio.currentTime = 0;
+
+
+
+
+            masterLoop();
+        }
+
+
+        function randombulletYstarting(leftorright) {
+            const a = Math.floor(Math.random() * (200) + (canvas.height / 2 - 100))
+            return a
+        }
+
+        function randomXstarting(leftorright) {
+            //1910     /2 = 955
+            const a = Math.floor(Math.random() * 300 + 1 + (canvas.width / 2 - 150))
+            return a
+        }
+
+
+
+        function changebulletSpawnFrequency() {
+            if (bulletSpawnInterval <= 9 && bulletSpawnInterval > 8) {
+                for (let i = 0; i < 1; i++) {
+                    initBullets(0);
+                }
+            } else if (bulletSpawnInterval <= 8 && bulletSpawnInterval > 7.5) {
+                for (let i = 0; i < 2; i++) {
+                    initBullets(0);
+                }
+            } else {
+                for (let i = 0; i < 3; i++) {
+                    initBullets(1);
+                }
+            }
+            return;
+        }
+
+
+
+
+
+
+        function bulletmovementspeedup() {
+            bullets.forEach(bullet => {
+                if (bullet.speedX > 0) {
+                    bullet.speedX += 0.2;
+                } else if (bullet.speedX < 0) {
+                    bullet.speedX -= 0.2;
+                }
+
+                if (bullet.speedY > 0) {
+                    bullet.speedY += 0.2;
+                } else if (bullet.speedY < 0) {
+                    bullet.speedY -= 0.2;
+                }
+            });
+        }
+
+
+
+        function initBullets(num) {
+
+            for (let i = 0; i < 3; i++) {
+                let bullet = {
+                    x: 0,
+                    y: 0,
+                    width: 50,
+                    height: 23,
+                    speedX: 0,
+                    speedY: 0
+                };
+
+                if (num === 0) {
+                    // Left to right
+                    bullet.x = 0;
+                    bullet.y = randombulletYstarting();
+                    bullet.speedX = baseSpeed;
+                    bullet.speedY = (i === 0 ? baseDiagSpeed : i === 2 ? -baseDiagSpeed : 0);
+
+                } else if (num === 1) {
+                    // Right to left
+                    bullet.x = canvas.width - bullet.width;
+                    bullet.y = randombulletYstarting();
+                    bullet.speedX = -baseSpeed;
+                    bullet.speedY = (i === 0 ? baseDiagSpeed : i === 2 ? -baseDiagSpeed : 0);
+
+                } else if (num === 2) {
+                    // Top to bottom
+                    bullet.x = randomXstarting();
+                    bullet.y = 0;
+                    bullet.speedX = (i === 0 ? baseDiagSpeed : i === 2 ? -baseDiagSpeed : 0);
+                    bullet.speedY = baseSpeed;
+                    bullet.height = 50;
+                    bullet.width = 23;
+
+                } else if (num === 3) {
+                    // Bottom to top
+                    bullet.x = randomXstarting();
+                    bullet.y = canvas.height - bullet.height;
+                    bullet.speedX = (i === 0 ? baseDiagSpeed : i === 2 ? -baseDiagSpeed : 0);
+                    bullet.speedY = -baseSpeed;
+                    bullet.height = 50;
+                    bullet.width = 23;
+                }
+
+                bullets.push(bullet);
+            }
+        }
+
+
+
+
+
+
+        function Checkclimaxreached() {
+
+            let total = 0
+            let stage = 0;
+            if (climaxoverlast3s.length >= 5) {
+
+                for (let i = 0; i < 5; i++) {
+                    total += climaxoverlast3s[i];
+                }
+                let averageMusicvolume = Math.floor(total / 5);
+
+                if (averageMusicvolume > 215 && averageMusicvolume < 230) {
+                    console.log(averageMusicvolume)
+                    stage = 1
+                } else if (averageMusicvolume >= 230 && averageMusicvolume < 240) {
+                    console.log(averageMusicvolume)
+                    stage = 2
+                } else if (averageMusicvolume >= 240 && averageMusicvolume < 250) {
+                    console.log(averageMusicvolume)
+                    stage = 3;
+                } else if (averageMusicvolume > 250) {
+                    console.log(averageMusicvolume)
+                    stage = 4
+                } else {
+                    stage = 0
+                }
+
+                climaxoverlast3s = [];
+                return stage;
+            }
+
+            return
+        }
+
+
+
+        function CheckifClimax() {
+
+            const reachedstage1 = Checkclimaxreached();
+            if (reachedstage1 === 1) {
+                baseSpeed += 0.1;
+                baseDiagSpeed += 0.1;
+                ifclimaxreached = true;
+                bulletSpawnInterval = 6;
+                if (bar5width < canvas.width / 2) {
+                    bar5width += 1;
+                }
+                console.log("stage 1 reached")
+
+            } else if (reachedstage1 === 2) {
+                baseSpeed += 0.2;
+                baseDiagSpeed += 0.2;
+                ifclimaxreached = true;
+                bulletSpawnInterval = 5;
+                if (bar5width < canvas.width / 2) {
+                    bar5width += 2;
+                }
+                console.log("stage 2 reached")
+
+            } else if (reachedstage1 === 3) {
+                baseSpeed += 0.3;
+                baseDiagSpeed += 0.3;
+                ifclimaxreached = true;
+                bulletSpawnInterval = 4;
+                if (bar5width < canvas.width / 2) {
+                    bar5width += 3;
+                }
+                console.log("stage 3 reached")
+
+            } else if (reachedstage1 === 4) {
+                baseSpeed += 0.4;
+                baseDiagSpeed += 0.4;
+                ifclimaxreached = true;
+                bulletSpawnInterval = 3;
+                if (bar5width < canvas.width / 2) {
+                    bar5width += 4;
+                }
+                console.log("stage 4 reached")
+            } else {
+                bulletSpawnInterval = 8;
+                baseSpeed = 0.4;
+                baseDiagSpeed = 0.25;
+                console.log("climax did not reach")
+            }
+        }
+
+
+
+        function clearBullets() {
+            bullets.length = 0;
+        }
+
+
+
+
+
+
+        function masterLoop() {
+            if (stopped) return;
+            animationFrameId = requestAnimationFrame(masterLoop);
+            const { width, height } = canvas;
+            ctx.clearRect(0, 0, width, height);
+
+            g.update();
+            g.draw();
+
+            if (keys.w) bird.y -= moveSpeed;
+            if (keys.s) bird.y += moveSpeed;
+            if (keys.a) bird.x -= moveSpeed;
+            if (keys.d) bird.x += moveSpeed;
+
+            if (birdLoaded) {
+                ctx.drawImage(birdimg, bird.x, bird.y, bird.width, bird.height);
+            }
+
+            if (audio.ended) {
+                finishpage.style.display = "block"
+                finishpage.style.position = "absolute"
+
+                pauseicon.style.display = "none"
+                clearInterval(interval1);
+
+
+            }
+
+
+
+
+
+
+            if (isInit) {
+                analyzer.getByteFrequencyData(dataArray);
+
+
+                const len = dataArray.length / 4;
+                const barWidth = width / len / 2;
+
+
+                ctx.fillStyle = "green"
+
+                if (!audio.paused) {
+
+                    if (audio.currentTime >= 1 && initialinit) {
+                        initBullets(0);
+                        initialinit = false;
+                    }
+
+                    if (audio.currentTime - lastfrequencyTime > 10) {
+                        lastfrequencyTime = audio.currentTime;
+                        CheckifClimax();
+                    }
+                    if (bulletSpawnInterval === 6) {
+                        if (audio.currentTime - lastBulletSpawnTime > 6) {
+
+                            bulletmovementspeedup();
+                            initBullets(0);
+                            initBullets(1);
+                            initBullets(2);
+                            initBullets(3);
+                            lastBulletSpawnTime = audio.currentTime;
+                        }
+                    } else if (bulletSpawnInterval === 5) {
+                        if (audio.currentTime - lastBulletSpawnTime > 5) {
+
+                            bulletmovementspeedup();
+                            initBullets(0);
+                            initBullets(1);
+                            initBullets(2);
+                            initBullets(3);
+                            lastBulletSpawnTime = audio.currentTime;
+                        }
+                    } else if (bulletSpawnInterval === 4) {
+                        if (audio.currentTime - lastBulletSpawnTime > 4) {
+
+                            bulletmovementspeedup();
+                            initBullets(0);
+                            initBullets(1);
+                            initBullets(2);
+                            initBullets(3);
+                            lastBulletSpawnTime = audio.currentTime;
+                        }
+                    } else if (bulletSpawnInterval === 3) {
+                        if (audio.currentTime - lastBulletSpawnTime > 3) {
+
+                            bulletmovementspeedup();
+                            initBullets(0);
+                            initBullets(1);
+                            initBullets(2);
+                            initBullets(3);
+                            lastBulletSpawnTime = audio.currentTime;
+                        }
+                    } else {
+                        if (audio.currentTime - lastBulletSpawnTime > 10) {
+                            initBullets(0);
+
+                            initBullets(1)
+                            lastBulletSpawnTime = audio.currentTime;
+                        }
+                    }
+
+
+                    bullets.forEach((bullet, index) => {
+                        bullet.x += bullet.speedX;
+                        bullet.y += bullet.speedY;
+
+                        ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+                    });
+
+
+                    bullets = bullets.filter(bullet =>
+                        bullet.x + bullet.width > 0 &&
+                        bullet.x < canvas.width &&
+                        bullet.y + bullet.height > 0 &&
+                        bullet.y < canvas.height
+                    );
+
+
+                }
+
+                ctx.fillStyle = "#78C5F7";
+
+                const bar5 = { x: 0, y: 0, width: bar5width, height: canvas.height }
+
+
+
+
+                ctx.fillRect(bar5.x, bar5.y, bar5.width, bar5.height);
+
+                for (let i = 0; i < len; i++) {
+                    const data = dataArray[i];
+                    const barHeight = (data / 255) * height / 2.6;
+
+
+                    const x1 = i * barWidth + width / 2;
+                    const x2 = width / 2 - (i + 1) * barWidth;
+                    const yBottom = height - barHeight;
+                    const yTop = 0;
+
+                    const bar1 = { x: x1, y: yBottom, width: barWidth - 2, height: barHeight };
+                    const bar2 = { x: x2, y: yBottom, width: barWidth - 2, height: barHeight };
+                    const bar3 = { x: x1, y: yTop, width: barWidth - 2, height: barHeight };
+                    const bar4 = { x: x2, y: yTop, width: barWidth - 2, height: barHeight };
+
+                    climax = Math.max(...dataArray)
+
+                    ctx.fillRect(bar1.x, bar1.y, bar1.width, bar1.height);
+                    ctx.fillRect(bar2.x, bar2.y, bar2.width, bar2.height);
+                    ctx.fillRect(bar3.x, bar3.y, bar3.width, bar3.height);
+                    ctx.fillRect(bar4.x, bar4.y, bar4.width, bar4.height);
+
+                    if ([bar1, bar2, bar3, bar4, bar5, ...bullets].some(bar => isColliding(bird, bar))) {
+                        console.log("Collision detected! ");
+                        stopped = true;
+                        audio.pause();
+                        clearBullets();
+                        const gameover = document.querySelector(".gameover")
+                        gameover.style.display = "block"
+                        const percentdone = document.querySelector(".percentdone")
+                        percentdone.innerHTML = `you are ${percentagetodisplay.toFixed(2)}% done with the song`
+
+                        pauseicon.style.display = "none"
+
+                        return;
+                    }
+                }
+
+                if (audio.currentTime - lastchecktime > checkevery1s) {
+                    climaxoverlast3s.push(climax);
+                    lastchecktime = audio.currentTime
+                }
+            }
+        }
+
+
+        masterLoop();
+        const restartbtn = document.getElementById("restart-game")
+        restartbtn.addEventListener("click", () => {
+            restartgame();
+        })
+
+        const restartbtn2 = document.getElementById("restart-game2")
+        restartbtn2.addEventListener("click", () => {
+            finishpage.style.display = "none"
+            restartgame();
+        })
+
+        const pause_restart = document.getElementById("restart-game3")
+
+        pause_restart.addEventListener("click", () => { restartgame() });
+
+
+    </script>
+</body>
+
+</html>
