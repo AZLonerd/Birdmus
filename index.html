@@ -212,12 +212,81 @@
         .gameover .container {
             display: block;
         }
+
+
+        .pointsdiv {
+            display: none;
+            position: absolute;
+            left: 60%;
+            top: 0%;
+        }
+
+        .defaultaudiocontainer {
+            font-family: sans-serif;
+            margin: auto;
+            padding: 16px;
+
+            border-radius: 12px;
+            max-width: 400px;
+        }
+
+        .song-container {
+            margin: auto;
+            width: fit-content;
+            margin-top: 10px;
+        }
+
+        .defaultaudiocontainer button {
+            width: 300px;
+            height: auto;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 20px;
+            margin-top: 10px;
+            background: #1e1e1e;
+            color: #f5f5f5;
+        }
+
+        .defaultaudiocontainer button:hover {
+            cursor: pointer;
+            width: 300px;
+            height: auto;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 20px;
+            background-color: #2a2a2a;
+        }
+
+
+
+        .song-instruction {
+            font-size: 15px;
+            font-weight: 800;
+            margin: auto;
+            width: fit-content
+        }
+
+        .dancewithmeicon::before {
+            content: "▶️";
+            position: absolute;
+            left: 38%;
+        }
+
+        .champagneoceanicon::before {
+            content: "▶️";
+            position: absolute;
+            left: 38%;
+        }
     </style>
     <link rel="stylesheet" href="upload.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
+    <div class="pointsdiv">
+        <p>Total points: <span class="pointspan">0</span></p>
+        <p>You need <span class="pointsneeded">0</span> points to pass</p>
+    </div>
     <div class="upload select">
         <div class="upload-select" id="uploadBox" style="margin:auto">
             <p class="plus-icon">+</p>
@@ -260,6 +329,24 @@
             </div>
         </div>
 
+        <div class="defaultaudiocontainer">
+            <p class="song-instruction">Don't got songs? Use some of the songs here</p>
+            <div style="height:auto;" class="song-container">
+                <div style="height: auto;">
+                    <audio class="default-audio" src=""></audio>
+                    <button class="champagne-ocean">
+                        <p class="champagneoceanicon">Ehrling-Champagne Ocean</p>
+                    </button>
+                </div>
+                <div class="song two" style="height:auto">
+                    <audio class="default-audio-two" src=""></audio>
+                    <button class="dance-with-me">
+                        <p class="dancewithmeicon">Ehrling-dance with me</p>
+                    </button>
+                </div>
+            </div>
+
+        </div>
 
         <div class="upload-result"></div>
         <div style="display:none" class="pause-container">
@@ -306,7 +393,7 @@
     </div>
 
     <div class="finish-page" style="display: none;background-color: gray;">
-        <p>Congrats! you finished the sound track!</p>
+        <p class="finish-page-p">Congrats! you finished the sound track!</p>
         <div style="display:flex">
             <button id="restart-game2">Restart game</button>
         </div>
@@ -334,6 +421,7 @@
                 go back to Home page
             </button>
         </div>
+
     </div>
 
 
@@ -357,6 +445,8 @@
         const bar = document.querySelector(".progress-bar")
         const plus = document.querySelector(".plus-icon")
 
+        const pointsneed = document.querySelector(".pointsneeded")
+
         const music_progress_bar = document.querySelector(".music-progress-bar")
 
         const pause_page = document.querySelector(".pause-page")
@@ -371,6 +461,23 @@
 
         const introduction = document.querySelector(".introduction")
         const progressFinish = document.querySelector(".progress-bar-finish")
+
+        const dancewithme = document.querySelector(".dance-with-me")
+        const default_audio = document.querySelector(".default-audio")
+        const champagneOcean = document.querySelector(".champagne-ocean")
+        const default_audio2 = document.querySelector(".default-audio-two")
+        const pointsdiv = document.querySelector(".pointsdiv")
+
+
+        champagneOcean.addEventListener("click", () => {
+            default_audio.src = "Ehrling - Champagne Ocean [No copyright Music].mp3"
+        })
+        dancewithme.addEventListener("click", () => {
+            default_audio.src = "Ehrling - Dance With Me.mp3"
+        })
+
+
+
         tutorialbtn.addEventListener("click", () => {
             if (tutorial.style.display === "block") {
                 tutorial.style.display = "none";
@@ -463,6 +570,8 @@
         const pauseicon = document.querySelector(".pause-container")
         const resumeicon = document.querySelector(".resume-icon")
 
+        const finishpagep = document.querySelector(".finish-page-p")
+
 
         let bulletbar = [];
 
@@ -483,10 +592,14 @@
             pause_page.style.display = "block"
 
 
+
             clearInterval(interval1);
 
 
         })
+
+
+
 
 
 
@@ -535,15 +648,19 @@
 
         audio.addEventListener('canplaythrough', () => {
 
+            document.querySelector(".defaultaudiocontainer").style.display = "none"
             homebtn.style.display = "block"
             tutorial.style.display = "none"
             canvas.style.display = 'block';
             introduction.style.display = "none"
+            pointsdiv.style.display = "block"
 
             uploadBox.style.display = "none";
             playBtn.style.display = "inline-block";
             resultBox.style.display = "block"
             mustbe.style.display = "none"
+
+            pointsneed.innerHTML = pointstopassLevel();
         });
 
         playBtn.addEventListener("click", () => {
@@ -574,6 +691,7 @@
             audio.currentTime = 0;
 
             fileInput.value = '';
+            totalpoints = 0
             progressFinish.style.display = "none"
 
             if (tutorialbtn.classList.contains("closebtn")) {
@@ -582,9 +700,13 @@
             tutorialbtn.style.display = "block";
             tutorial.style.display = "none";
 
+            gameover.style.display = "none"
+
 
             canvas.style.display = 'none';
             introduction.style.display = "block";
+
+            pointsdiv.style.display = "none"
 
             uploadBox.style.display = "flex";
             playBtn.style.display = "none";
@@ -599,6 +721,8 @@
             finishpage.style.display = "none";
             pause_page.style.display = "none";
             bullets = []
+            document.querySelector(".defaultaudiocontainer").style.display = "block"
+
             clearInterval(interval1)
 
             audio.src = "";
@@ -684,6 +808,8 @@
             birdLoaded = true;
         };
 
+
+
         const bird = {
             x: canvas.width / 8,
             y: canvas.height / 2,
@@ -736,8 +862,8 @@
 
         let bulletfrequencyinterval = 10;
         let lastfrequencyTime = 0
-        let baseSpeed = 0.5;
-        let baseDiagSpeed = 0.3;
+        let baseSpeed = 0.3
+        let baseDiagSpeed = 0.2;
         let bullets = []
         let initialinit = true;
 
@@ -750,21 +876,45 @@
         let ifclimaxreachedinterval = 5;
 
         let animationFrameId;
+
+        let pointsarr = [];
+
+        let totalpoints = 0;
+        let lastpointspawntime = 0;
+
+
+
+        //pointsneedtopasslevel
+        function pointstopassLevel() {
+            const songduration = audio.duration;
+            const totalpointstopasslevel = (Math.floor(songduration / 20) + 2) * 100
+            return totalpointstopasslevel;
+        }
+
+        function checkifpasslevel(num) {
+            return pointstopassLevel() <= num;
+        }
+
+
         function restartgame() {
             cancelAnimationFrame(animationFrameId);
             music_progress_bar.style.display = "none";
             pauseicon.style.display = "none";
             resumeicon.style.display = "none";
-            document.querySelector(".gameover").style.display = "none";
+
+
+            gameover.style.display = "none"
+
             if (pause_page) pause_page.style.display = "none";
             playBtn.style.display = "inline-block";
+
 
             progressFinish.style.display = "none"
 
             clearInterval(interval1);
             stopped = false;
-            baseSpeed = 0.5
-            baseDiagSpeed = 0.3;
+            baseSpeed = 0.3
+            baseDiagSpeed = 0.2;
             clearBullets();
             bulletx = 0;
             lastBulletSpawnTime = 0;
@@ -788,6 +938,10 @@
             bird.x = canvas.width / 8;
             bird.y = canvas.height / 2;
             bar5width = 30;
+            pointsarr = [];
+            lastpointspawntime = 0;
+            totalpoints = 0;
+
 
 
             audio.pause();
@@ -947,8 +1101,8 @@
 
             const reachedstage1 = Checkclimaxreached();
             if (reachedstage1 === 1) {
-                baseSpeed += 0.1;
-                baseDiagSpeed += 0.1;
+                baseSpeed += 0.05;
+                baseDiagSpeed += 0.05;
                 ifclimaxreached = true;
                 bulletSpawnInterval = 6;
                 if (bar5width < canvas.width / 2) {
@@ -957,8 +1111,8 @@
 
 
             } else if (reachedstage1 === 2) {
-                baseSpeed += 0.2;
-                baseDiagSpeed += 0.2;
+                baseSpeed += 0.1;
+                baseDiagSpeed += 0.1;
                 ifclimaxreached = true;
                 bulletSpawnInterval = 5;
                 if (bar5width < canvas.width / 2) {
@@ -967,8 +1121,8 @@
 
 
             } else if (reachedstage1 === 3) {
-                baseSpeed += 0.3;
-                baseDiagSpeed += 0.3;
+                baseSpeed += 0.15;
+                baseDiagSpeed += 0.15;
                 ifclimaxreached = true;
                 bulletSpawnInterval = 4;
                 if (bar5width < canvas.width / 2) {
@@ -977,8 +1131,8 @@
 
 
             } else if (reachedstage1 === 4) {
-                baseSpeed += 0.4;
-                baseDiagSpeed += 0.4;
+                baseSpeed += 0.20;
+                baseDiagSpeed += 0.20;
                 ifclimaxreached = true;
                 bulletSpawnInterval = 3;
                 if (bar5width < canvas.width / 2) {
@@ -986,9 +1140,9 @@
                 }
 
             } else {
-                bulletSpawnInterval = 8;
-                baseSpeed = 0.4;
-                baseDiagSpeed = 0.25;
+                bulletSpawnInterval = 5;
+                baseSpeed = 0.3;
+                baseDiagSpeed = 0.2;
 
             }
         }
@@ -1002,7 +1156,27 @@
 
 
 
+        function generatespawnpointforpoints() {
+            const x = Math.floor(Math.random() * canvas.width / 2 + 500)
+            const y = Math.floor(Math.random() * 40 + 230)
 
+            const width = 50;
+            const height = 50;
+
+            return { x, y, width, height }
+        }
+
+
+
+        const pointspan = document.querySelector(".pointspan")
+        const gameover = document.querySelector(".gameover")
+
+
+        function clearpointsfromcanvas(point) {
+            pointsarr = pointsarr.filter((ele) => {
+                return ele !== point;
+            })
+        }
 
         function masterLoop() {
             if (stopped) return;
@@ -1013,25 +1187,44 @@
             g.update();
             g.draw();
 
-            if (keys.w) bird.y -= moveSpeed;
-            if (keys.s) bird.y += moveSpeed;
-            if (keys.a) bird.x -= moveSpeed;
-            if (keys.d) bird.x += moveSpeed;
+            if (pause_page.style.display == "block") {
+
+                if (keys.w) bird.y -= 0;
+                if (keys.s) bird.y += 0;
+                if (keys.a) bird.x -= 0;
+                if (keys.d) bird.x += 0;
+            } else {
+
+
+                if (keys.w) bird.y -= moveSpeed;
+                if (keys.s) bird.y += moveSpeed;
+                if (keys.a) bird.x -= moveSpeed;
+                if (keys.d) bird.x += moveSpeed;
+            }
 
             if (birdLoaded) {
                 ctx.drawImage(birdimg, bird.x, bird.y, bird.width, bird.height);
             }
 
             if (audio.ended) {
-                finishpage.style.display = "block"
-                finishpage.style.position = "absolute"
+                if (checkifpasslevel(totalpoints)) {
+                    finishpage.style.display = "block"
+                    finishpage.style.position = "absolute"
 
-                pauseicon.style.display = "none"
-                clearInterval(interval1);
+                    pauseicon.style.display = "none"
+                    clearInterval(interval1);
+                } else {
+                    const pointsdiff = pointstopassLevel() - totalpoints
+                    finishpage.style.display = "block"
+                    gameover.style.opacity = "0"
+
+                    finishpagep.textContent = `points not enough, you are ${pointsdiff} points from passing `
+                    clearInterval(interval1)
+                }
+
 
 
             }
-
 
 
 
@@ -1099,7 +1292,7 @@
                             lastBulletSpawnTime = audio.currentTime;
                         }
                     } else {
-                        if (audio.currentTime - lastBulletSpawnTime > 10) {
+                        if (audio.currentTime - lastBulletSpawnTime > 5) {
                             initBullets(0);
 
                             initBullets(1)
@@ -1108,7 +1301,23 @@
                     }
 
 
+                    if (audio.currentTime - lastpointspawntime > 10) {
+                        const pointspawn = generatespawnpointforpoints();
+                        pointsarr.push(pointspawn);
+
+                        lastpointspawntime = audio.currentTime;
+
+                    }
+
+                    pointsarr.forEach(p => {
+                        ctx.fillStyle = "yellow";
+                        ctx.fillRect(p.x, p.y, p.width, p.height);
+                    });
+
+
+
                     bullets.forEach((bullet, index) => {
+                        ctx.fillStyle = "green"
                         bullet.x += bullet.speedX;
                         bullet.y += bullet.speedY;
 
@@ -1130,10 +1339,11 @@
 
                 const bar5 = { x: 0, y: 0, width: bar5width, height: canvas.height }
 
-
+                const bar6 = { x: canvas.width - 10, y: 0, width: 10, height: canvas.height }
 
 
                 ctx.fillRect(bar5.x, bar5.y, bar5.width, bar5.height);
+                ctx.fillRect(bar6.x, bar6.y, bar6.width, bar6.height);
 
                 for (let i = 0; i < len; i++) {
                     const data = dataArray[i];
@@ -1157,21 +1367,37 @@
                     ctx.fillRect(bar3.x, bar3.y, bar3.width, bar3.height);
                     ctx.fillRect(bar4.x, bar4.y, bar4.width, bar4.height);
 
-                    if ([bar1, bar2, bar3, bar4, bar5, ...bullets].some(bar => isColliding(bird, bar))) {
+
+                    //collision to check if user dodged bullets and sound wave
+                    if ([bar1, bar2, bar3, bar4, bar5, bar6, ...bullets].some(bar => isColliding(bird, bar))) {
 
                         stopped = true;
                         audio.pause();
                         clearBullets();
-                        const gameover = document.querySelector(".gameover")
                         gameover.style.display = "block"
                         const percentdone = document.querySelector(".percentdone")
                         percentdone.innerHTML = `you are ${percentagetodisplay.toFixed(2)}% done with the song`
 
                         pauseicon.style.display = "none"
+                        homebtn.style.display = "none"
+
+
 
                         return;
                     }
                 }
+
+
+                const collidedPoint = pointsarr.find(ele => isColliding(bird, ele));
+
+                if (collidedPoint) {
+                    totalpoints += 100;
+                    pointsarr = pointsarr.filter(p => p !== collidedPoint);
+
+                }
+
+                pointspan.textContent = totalpoints;
+
 
                 if (audio.currentTime - lastchecktime > checkevery1s) {
                     climaxoverlast3s.push(climax);
@@ -1185,17 +1411,22 @@
         const restartbtn = document.getElementById("restart-game")
         restartbtn.addEventListener("click", () => {
             restartgame();
+
         })
 
         const restartbtn2 = document.getElementById("restart-game2")
         restartbtn2.addEventListener("click", () => {
             finishpage.style.display = "none"
             restartgame();
+
         })
 
         const pause_restart = document.getElementById("restart-game3")
 
-        pause_restart.addEventListener("click", () => { restartgame() });
+        pause_restart.addEventListener("click", () => {
+            restartgame()
+
+        });
 
 
     </script>
