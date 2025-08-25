@@ -1127,8 +1127,8 @@
 
             const reachedstage1 = Checkclimaxreached();
             if (reachedstage1 === 1) {
-                baseSpeed += 0.05;
-                baseDiagSpeed += 0.05;
+                baseSpeed += 0.04;
+                baseDiagSpeed += 0.04;
                 ifclimaxreached = true;
                 bulletSpawnInterval = 6;
                 if (bar5width < canvas.width / 2) {
@@ -1137,8 +1137,8 @@
 
 
             } else if (reachedstage1 === 2) {
-                baseSpeed += 0.1;
-                baseDiagSpeed += 0.1;
+                baseSpeed += 0.07;
+                baseDiagSpeed += 0.06;
                 ifclimaxreached = true;
                 bulletSpawnInterval = 5;
                 if (bar5width < canvas.width / 2) {
@@ -1147,8 +1147,8 @@
 
 
             } else if (reachedstage1 === 3) {
-                baseSpeed += 0.15;
-                baseDiagSpeed += 0.15;
+                baseSpeed += 0.08;
+                baseDiagSpeed += 0.08;
                 ifclimaxreached = true;
                 bulletSpawnInterval = 4;
                 if (bar5width < canvas.width / 2) {
@@ -1157,8 +1157,8 @@
 
 
             } else if (reachedstage1 === 4) {
-                baseSpeed += 0.20;
-                baseDiagSpeed += 0.20;
+                baseSpeed += 0.11;
+                baseDiagSpeed += 0.11;
                 ifclimaxreached = true;
                 bulletSpawnInterval = 3;
                 if (bar5width < canvas.width / 2) {
@@ -1166,7 +1166,7 @@
                 }
 
             } else {
-                bulletSpawnInterval = 5;
+                bulletSpawnInterval = 7;
                 baseSpeed = 0.3;
                 baseDiagSpeed = 0.2;
 
@@ -1291,38 +1291,53 @@
                             bulletmovementspeedup();
                             initBullets(0);
                             initBullets(1);
-                            initBullets(2);
-                            initBullets(3);
+
                             lastBulletSpawnTime = audio.currentTime;
                         }
                     } else if (bulletSpawnInterval === 5) {
                         if (audio.currentTime - lastBulletSpawnTime > 5) {
 
                             bulletmovementspeedup();
-                            initBullets(0);
-                            initBullets(1);
                             initBullets(2);
                             initBullets(3);
+
                             lastBulletSpawnTime = audio.currentTime;
                         }
                     } else if (bulletSpawnInterval === 4) {
                         if (audio.currentTime - lastBulletSpawnTime > 4) {
-
                             bulletmovementspeedup();
-                            initBullets(0);
-                            initBullets(1);
-                            initBullets(2);
-                            initBullets(3);
+
+                            if (audio.duration - audio.currentTime < 60) {
+                                initBullets(1);
+                                initBullets(4);
+                                initBullets(0);
+                                initBullets(2);
+
+                            } else {
+                                initBullets(0);
+                                initBullets(1);
+                            }
+
                             lastBulletSpawnTime = audio.currentTime;
                         }
                     } else if (bulletSpawnInterval === 3) {
                         if (audio.currentTime - lastBulletSpawnTime > 3) {
 
                             bulletmovementspeedup();
-                            initBullets(0);
-                            initBullets(1);
-                            initBullets(2);
-                            initBullets(3);
+                            if (audio.duration - audio.currentTime < 60) {
+                                initBullets(1);
+                                initBullets(4);
+                                initBullets(0);
+                                initBullets(2);
+
+                            } else {
+                                initBullets(0);
+                                initBullets(1);
+                            }
+
+
+
+
                             lastBulletSpawnTime = audio.currentTime;
                         }
                     } else {
@@ -1330,6 +1345,7 @@
                             initBullets(0);
 
                             initBullets(1)
+
                             lastBulletSpawnTime = audio.currentTime;
                         }
                     }
