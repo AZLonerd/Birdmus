@@ -277,6 +277,13 @@
             position: absolute;
             left: 38%;
         }
+
+        .yellowsquare {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: yellow;
+        }
     </style>
     <link rel="stylesheet" href="upload.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -284,8 +291,14 @@
 
 <body>
     <div class="pointsdiv">
-        <p>Total points: <span class="pointspan">0</span></p>
-        <p>You need <span class="pointsneeded">0</span> points to pass</p>
+        <p>Total points: <span class="pointspan">0</span>
+            <span style="margin-left:20px; margin-right:10px; font-weight: 900;">⚠️collect</span><span
+                class="yellowsquare" style="margin-right:7px"></span>to get
+            points
+        </p>
+        <p class="ifpassedcheck" style="color: red;"><span class="cross">❌</span>You need <span
+                class="pointsneeded">0</span> points to pass
+        </p>
     </div>
     <div class="upload select">
         <div class="upload-select" id="uploadBox" style="margin:auto">
@@ -469,6 +482,7 @@
         const pointsdiv = document.querySelector(".pointsdiv")
 
 
+        const cross = document.querySelector(".cross")
         champagneOcean.addEventListener("click", () => {
             default_audio.src = "Ehrling - Champagne Ocean [No copyright Music].mp3"
         })
@@ -561,6 +575,7 @@
 
         }
 
+        const ifpassedcheck = document.querySelector(".ifpassedcheck")
 
         let audioDuration;
         const repeatedTimes = Math.floor(audioDuration / 5) + 1;
@@ -710,6 +725,10 @@
 
             uploadBox.style.display = "flex";
             playBtn.style.display = "none";
+
+            ifpassedcheck.style.color = "red"
+            cross.innerHTML = "❌"
+            requirementnotreached = true;
 
             bar.style.display = "none";
             plus.style.display = "block";
@@ -887,7 +906,7 @@
         //pointsneedtopasslevel
         function pointstopassLevel() {
             const songduration = audio.duration;
-            const totalpointstopasslevel = (Math.floor(songduration / 20) + 2) * 100
+            const totalpointstopasslevel = (Math.floor(songduration / 20)) * 100
             return totalpointstopasslevel;
         }
 
@@ -908,6 +927,10 @@
             if (pause_page) pause_page.style.display = "none";
             playBtn.style.display = "inline-block";
 
+
+            ifpassedcheck.style.color = "red"
+            cross.innerHTML = "❌"
+            requirementnotreached = true;
 
             progressFinish.style.display = "none"
 
@@ -1160,8 +1183,8 @@
             const x = Math.floor(Math.random() * canvas.width / 2 + 500)
             const y = Math.floor(Math.random() * 40 + 230)
 
-            const width = 50;
-            const height = 50;
+            const width = 25;
+            const height = 25;
 
             return { x, y, width, height }
         }
@@ -1178,6 +1201,7 @@
             })
         }
 
+        let requirementnotreached = true;
         function masterLoop() {
             if (stopped) return;
             animationFrameId = requestAnimationFrame(masterLoop);
@@ -1204,6 +1228,13 @@
 
             if (birdLoaded) {
                 ctx.drawImage(birdimg, bird.x, bird.y, bird.width, bird.height);
+            }
+
+            if (checkifpasslevel(totalpoints) && requirementnotreached) {
+                ifpassedcheck.style.color = "green"
+                cross.innerHTML = "✅"
+                requirementnotreached = false;
+
             }
 
             if (audio.ended) {
