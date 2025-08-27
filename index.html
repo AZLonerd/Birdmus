@@ -835,8 +835,8 @@
         const bird = {
             x: canvas.width / 8,
             y: canvas.height / 2,
-            width: 40,
-            height: 40
+            width: 38,
+            height: 38
         };
 
         const keys = { w: false, a: false, s: false, d: false };
@@ -909,7 +909,7 @@
         //pointsneedtopasslevel
         function pointstopassLevel() {
             const songduration = audio.duration;
-            const totalpointstopasslevel = (Math.floor(songduration / 20)) * 100
+            const totalpointstopasslevel = (Math.floor(songduration / 15)) * 100
             return totalpointstopasslevel;
         }
 
@@ -980,8 +980,15 @@
         }
 
 
+
         function randombulletYstarting(leftorright) {
-            const a = Math.floor(Math.random() * (200) + (canvas.height / 2 - 100))
+            let a
+            let rand = Math.floor(Math.random() * 2)
+            if (rand == 1) {
+                a = Math.floor(Math.random() * (100) + (canvas.height / 2))
+            } else {
+                a = (canvas.height / 2) - Math.floor(Math.random() * 100)
+            }
             return a
         }
 
@@ -1098,7 +1105,7 @@
                 }
                 let averageMusicvolume = Math.floor(total / 5);
 
-                if (averageMusicvolume > 215 && averageMusicvolume < 230) {
+                if (averageMusicvolume > 220 && averageMusicvolume < 230) {
 
                     stage = 1
                 } else if (averageMusicvolume >= 230 && averageMusicvolume < 240) {
@@ -1127,46 +1134,46 @@
 
             const reachedstage1 = Checkclimaxreached();
             if (reachedstage1 === 1) {
-                baseSpeed += 0.04;
-                baseDiagSpeed += 0.04;
+                baseSpeed = 0.5
+                baseDiagSpeed = 0.4
                 ifclimaxreached = true;
-                bulletSpawnInterval = 6;
+                bulletSpawnInterval = 8;
                 if (bar5width < canvas.width / 2) {
                     bar5width += 1;
                 }
 
 
             } else if (reachedstage1 === 2) {
-                baseSpeed += 0.07;
-                baseDiagSpeed += 0.06;
+                baseSpeed = 0.7
+                baseDiagSpeed = 0.5
                 ifclimaxreached = true;
-                bulletSpawnInterval = 5;
+                bulletSpawnInterval = 7;
                 if (bar5width < canvas.width / 2) {
                     bar5width += 2;
                 }
 
 
             } else if (reachedstage1 === 3) {
-                baseSpeed += 0.08;
-                baseDiagSpeed += 0.08;
+                baseSpeed = 0.8
+                baseDiagSpeed = 0.7
                 ifclimaxreached = true;
-                bulletSpawnInterval = 4;
+                bulletSpawnInterval = 6;
                 if (bar5width < canvas.width / 2) {
                     bar5width += 3;
                 }
 
 
             } else if (reachedstage1 === 4) {
-                baseSpeed += 0.11;
-                baseDiagSpeed += 0.11;
+                baseSpeed = 1
+                baseDiagSpeed = 0.8
                 ifclimaxreached = true;
-                bulletSpawnInterval = 3;
+                bulletSpawnInterval = 5;
                 if (bar5width < canvas.width / 2) {
                     bar5width += 4;
                 }
 
             } else {
-                bulletSpawnInterval = 7;
+                bulletSpawnInterval = 5.5;
                 baseSpeed = 0.3;
                 baseDiagSpeed = 0.2;
 
@@ -1183,12 +1190,28 @@
 
 
         function generatespawnpointforpoints() {
-            const x = Math.floor(Math.random() * canvas.width / 2 + 500)
-            const y = Math.floor(Math.random() * 40 + 230)
+            const minX = 500 / 1910 * canvas.width;
+            const maxX = (canvas.width / 2) + minX;
+            const x = Math.floor(Math.random() * (maxX - minX) + minX);
 
-            const width = 25;
-            const height = 25;
 
+            const minY = (450 / 1080) * canvas.height;
+            const maxY = (500 / 1080) * canvas.height; // 230 + 40 = 270
+
+            let y
+            let rand = Math.floor(Math.random() * 2)
+            if (rand == 1) {
+                y = Math.floor(Math.random() * (50) + (canvas.height / 2))
+            } else {
+                y = (canvas.height / 2) - Math.floor(Math.random() * 50)
+            }
+
+
+
+
+
+            const width = 25
+            const height = 25
             return { x, y, width, height }
         }
 
@@ -1240,6 +1263,8 @@
 
             }
 
+
+
             if (audio.ended) {
                 if (checkifpasslevel(totalpoints)) {
                     finishpage.style.display = "block"
@@ -1285,25 +1310,25 @@
                         lastfrequencyTime = audio.currentTime;
                         CheckifClimax();
                     }
-                    if (bulletSpawnInterval === 6) {
+                    if (bulletSpawnInterval === 8) {
                         if (audio.currentTime - lastBulletSpawnTime > 6) {
 
                             bulletmovementspeedup();
                             initBullets(0);
-                            initBullets(1);
+                            initBullets(2);
 
                             lastBulletSpawnTime = audio.currentTime;
                         }
-                    } else if (bulletSpawnInterval === 5) {
+                    } else if (bulletSpawnInterval === 7) {
                         if (audio.currentTime - lastBulletSpawnTime > 5) {
 
                             bulletmovementspeedup();
-                            initBullets(2);
+                            initBullets(1);
                             initBullets(3);
 
                             lastBulletSpawnTime = audio.currentTime;
                         }
-                    } else if (bulletSpawnInterval === 4) {
+                    } else if (bulletSpawnInterval === 6) {
                         if (audio.currentTime - lastBulletSpawnTime > 4) {
                             bulletmovementspeedup();
 
@@ -1315,12 +1340,12 @@
 
                             } else {
                                 initBullets(0);
-                                initBullets(1);
+                                initBullets(2);
                             }
 
                             lastBulletSpawnTime = audio.currentTime;
                         }
-                    } else if (bulletSpawnInterval === 3) {
+                    } else if (bulletSpawnInterval === 5) {
                         if (audio.currentTime - lastBulletSpawnTime > 3) {
 
                             bulletmovementspeedup();
@@ -1331,8 +1356,8 @@
                                 initBullets(2);
 
                             } else {
-                                initBullets(0);
                                 initBullets(1);
+                                initBullets(3);
                             }
 
 
@@ -1341,7 +1366,7 @@
                             lastBulletSpawnTime = audio.currentTime;
                         }
                     } else {
-                        if (audio.currentTime - lastBulletSpawnTime > 5) {
+                        if (audio.currentTime - lastBulletSpawnTime > 5.5) {
                             initBullets(0);
 
                             initBullets(1)
@@ -1397,7 +1422,7 @@
 
                 for (let i = 0; i < len; i++) {
                     const data = dataArray[i];
-                    const barHeight = (data / 255) * height / 2.6;
+                    const barHeight = (data / 255) * height / 2.7
 
 
                     const x1 = i * barWidth + width / 2;
