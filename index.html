@@ -743,6 +743,7 @@
             finishpage.style.display = "none";
             pause_page.style.display = "none";
             bullets = []
+            bar5width = 30
             document.querySelector(".defaultaudiocontainer").style.display = "block"
 
             clearInterval(interval1)
@@ -903,13 +904,14 @@
 
         let totalpoints = 0;
         let lastpointspawntime = 0;
+        let lastpointdeletetime = 0;
 
 
 
         //pointsneedtopasslevel
         function pointstopassLevel() {
             const songduration = audio.duration;
-            const totalpointstopasslevel = (Math.floor(songduration / 15)) * 100
+            const totalpointstopasslevel = (Math.floor(songduration / 20)) * 100
             return totalpointstopasslevel;
         }
 
@@ -1379,9 +1381,13 @@
                     if (audio.currentTime - lastpointspawntime > 10) {
                         const pointspawn = generatespawnpointforpoints();
                         pointsarr.push(pointspawn);
-
                         lastpointspawntime = audio.currentTime;
 
+                    }
+
+                    if (audio.currentTime - lastpointdeletetime > 25) {
+                        pointsarr.shift()
+                        lastpointdeletetime = audio.currentTime;
                     }
 
                     pointsarr.forEach(p => {
