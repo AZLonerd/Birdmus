@@ -266,17 +266,22 @@
             width: fit-content
         }
 
-        .dancewithmeicon::before {
-            content: "▶️";
-            position: absolute;
-            left: 38%;
+        .dance-with-me,
+        .champagne-ocean {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            gap: 8px;
         }
 
+        .dancewithmeicon::before,
         .champagneoceanicon::before {
             content: "▶️";
-            position: absolute;
-            left: 38%;
+            position: static;
+
         }
+
 
         .yellowsquare {
             display: inline-block;
@@ -409,7 +414,7 @@
     </div>
 
     <div class="finish-page" style="display: none;background-color: gray;">
-        <p class="finish-page-p">Congrats! you finished the sound track!</p>
+        <p class="finish-page-p"></p>
         <div style="display:flex">
             <button id="restart-game2">Restart game</button>
         </div>
@@ -510,7 +515,7 @@
 
 
 
-        let shouldWarn = true; // Change this when progress is saved
+        let shouldWarn = true;
 
         window.addEventListener("beforeunload", function (event) {
             if (shouldWarn) {
@@ -638,7 +643,29 @@
 
         fileInput.addEventListener("change", () => {
             const file = fileInput.files[0];
+            handleFile(file);
+        });
+
+        uploadBox.addEventListener("dragenter", (e) => {
+            e.preventDefault();
+            uploadBox.classList.add("dragover");
+        });
+        uploadBox.addEventListener("dragover", (e) => e.preventDefault());
+        uploadBox.addEventListener("dragleave", () => uploadBox.classList.remove("dragover"));
+        uploadBox.addEventListener("drop", (e) => {
+            e.preventDefault();
+            uploadBox.classList.remove("dragover");
+
+            const file = e.dataTransfer.files[0];
+            handleFile(file);
+        });
+
+
+        function handleFile(file) {
             if (!file) return;
+
+            bar.style.display = "block";
+            plus.style.display = "none";
 
             const name = file.name.toLowerCase();
             const isMp3 = name.endsWith(".mp3");
@@ -646,7 +673,7 @@
             const maxSize = 10 * 1024 * 1024;
 
             if (!isMp3 || !isAudio) {
-                resultBox.textContent = "File must be a valid .mp3 audio.";
+                resultBox.textContent = " File must be a valid .mp3 audio.";
                 return;
             }
 
@@ -660,26 +687,24 @@
                 audio.src = audioURL;
                 resultBox.textContent = `✅ Ready: ${file.name}`;
             }, 5000);
-        });
+        }
 
-
-
-        audio.addEventListener('canplaythrough', () => {
-
-            document.querySelector(".defaultaudiocontainer").style.display = "none"
-            homebtn.style.display = "block"
-            tutorial.style.display = "none"
-            canvas.style.display = 'block';
-            introduction.style.display = "none"
-            pointsdiv.style.display = "block"
+        audio.addEventListener("canplaythrough", () => {
+            document.querySelector(".defaultaudiocontainer").style.display = "none";
+            homebtn.style.display = "block";
+            tutorial.style.display = "none";
+            canvas.style.display = "block";
+            introduction.style.display = "none";
+            pointsdiv.style.display = "block";
 
             uploadBox.style.display = "none";
             playBtn.style.display = "inline-block";
-            resultBox.style.display = "block"
-            mustbe.style.display = "none"
+            resultBox.style.display = "block";
+            mustbe.style.display = "none";
 
             pointsneed.innerHTML = pointstopassLevel();
         });
+
 
         playBtn.addEventListener("click", () => {
             music_progress_bar.style.display = "inline-block"
@@ -700,6 +725,38 @@
 
 
         const homebtn = document.getElementById("HomepageBtn")
+        let bulletx = 0
+
+        let lastBulletSpawnTime = 0;
+        let bulletSpawnInterval = 8;
+
+        let climax
+        let bulletfrequencytriggered = true;
+
+        let bulletfrequencyinterval = 10;
+        let lastfrequencyTime = 0
+        let baseSpeed = 0.3
+        let baseDiagSpeed = 0.2;
+        let bullets = []
+        let initialinit = true;
+
+        let climaxoverlast3s = []
+        let checkevery1s = 0.6;
+        let lastchecktime = 0
+
+
+        let ifclimaxreached = false;
+        let ifclimaxreachedinterval = 5;
+
+        let animationFrameId;
+
+        let pointsarr = [];
+
+        let totalpoints = 0;
+        let lastpointspawntime = 0;
+        let lastpointdeletetime = 0;
+
+
 
 
         homebtn.addEventListener('click', gobacktohomepage);
@@ -719,6 +776,9 @@
             tutorial.style.display = "none";
 
             gameover.style.display = "none"
+
+            lastpointdeletetime = 0;
+            lastpointspawntime = 0
 
 
             canvas.style.display = 'none';
@@ -875,38 +935,6 @@
 
 
 
-        let bulletx = 0
-
-        let lastBulletSpawnTime = 0;
-        let bulletSpawnInterval = 8;
-
-        let climax
-        let bulletfrequencytriggered = true;
-
-        let bulletfrequencyinterval = 10;
-        let lastfrequencyTime = 0
-        let baseSpeed = 0.3
-        let baseDiagSpeed = 0.2;
-        let bullets = []
-        let initialinit = true;
-
-        let climaxoverlast3s = []
-        let checkevery1s = 0.6;
-        let lastchecktime = 0
-
-
-        let ifclimaxreached = false;
-        let ifclimaxreachedinterval = 5;
-
-        let animationFrameId;
-
-        let pointsarr = [];
-
-        let totalpoints = 0;
-        let lastpointspawntime = 0;
-        let lastpointdeletetime = 0;
-
-
 
         //pointsneedtopasslevel
         function pointstopassLevel() {
@@ -932,6 +960,7 @@
             if (pause_page) pause_page.style.display = "none";
             playBtn.style.display = "inline-block";
 
+            lastpointdeletetime = 0;
 
             ifpassedcheck.style.color = "red"
             cross.innerHTML = "❌"
@@ -1245,6 +1274,13 @@
                 if (keys.s) bird.y += 0;
                 if (keys.a) bird.x -= 0;
                 if (keys.d) bird.x += 0;
+            } else if (gameover.style.display === "block") {
+                if (keys.w) bird.y -= 0;
+                if (keys.s) bird.y += 0;
+                if (keys.a) bird.x -= 0;
+                if (keys.d) bird.x += 0;
+
+
             } else {
 
 
@@ -1273,6 +1309,7 @@
                     finishpage.style.position = "absolute"
 
                     pauseicon.style.display = "none"
+                    finishpagep.textContent = `You passed the song! your total points is ${totalpoints}`
                     clearInterval(interval1);
                 } else {
                     const pointsdiff = pointstopassLevel() - totalpoints
