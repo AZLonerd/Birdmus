@@ -493,9 +493,11 @@
         const cross = document.querySelector(".cross")
         champagneOcean.addEventListener("click", () => {
             default_audio.src = "Ehrling - Champagne Ocean [No copyright Music].mp3"
+            resultBox.textContent = "✅Ehrling - Champagne Ocean.mp3"
         })
         dancewithme.addEventListener("click", () => {
             default_audio.src = "Ehrling - Dance With Me.mp3"
+            resultBox.textContent = "✅Ehrling - Dance With Me.mp3"
         })
 
 
@@ -550,6 +552,38 @@
         let currentIndex = 0;
 
         let percentagetodisplay = 0;
+
+        const homebtn = document.getElementById("HomepageBtn")
+        let bulletx = 0
+
+        let lastBulletSpawnTime = 0;
+        let bulletSpawnInterval = 8;
+
+        let climax
+        let bulletfrequencytriggered = true;
+
+        let bulletfrequencyinterval = 10;
+        let lastfrequencyTime = 0
+        let baseSpeed = 0.3
+        let baseDiagSpeed = 0.2;
+        let bullets = []
+        let initialinit = true;
+
+        let climaxoverlast3s = []
+        let checkevery1s = 0.6;
+        let lastchecktime = 0
+
+
+        let ifclimaxreached = false;
+        let ifclimaxreachedinterval = 5;
+
+        let animationFrameId;
+
+        let pointsarr = [];
+
+        let totalpoints = 0;
+        let lastpointspawntime = 0;
+        let lastpointdeletetime = 0;
         const totalSlides = slides.length;
 
         function updateSlider() {
@@ -724,37 +758,7 @@
 
 
 
-        const homebtn = document.getElementById("HomepageBtn")
-        let bulletx = 0
 
-        let lastBulletSpawnTime = 0;
-        let bulletSpawnInterval = 8;
-
-        let climax
-        let bulletfrequencytriggered = true;
-
-        let bulletfrequencyinterval = 10;
-        let lastfrequencyTime = 0
-        let baseSpeed = 0.3
-        let baseDiagSpeed = 0.2;
-        let bullets = []
-        let initialinit = true;
-
-        let climaxoverlast3s = []
-        let checkevery1s = 0.6;
-        let lastchecktime = 0
-
-
-        let ifclimaxreached = false;
-        let ifclimaxreachedinterval = 5;
-
-        let animationFrameId;
-
-        let pointsarr = [];
-
-        let totalpoints = 0;
-        let lastpointspawntime = 0;
-        let lastpointdeletetime = 0;
 
 
 
@@ -762,8 +766,7 @@
         homebtn.addEventListener('click', gobacktohomepage);
 
         function gobacktohomepage() {
-            audio.pause();
-            audio.currentTime = 0;
+
 
             fileInput.value = '';
             totalpoints = 0
@@ -777,6 +780,7 @@
 
             gameover.style.display = "none"
 
+            clearInterval(interval1)
             lastpointdeletetime = 0;
             lastpointspawntime = 0
 
@@ -805,8 +809,8 @@
             bullets = []
             bar5width = 30
             document.querySelector(".defaultaudiocontainer").style.display = "block"
+            initialinit = true;
 
-            clearInterval(interval1)
 
             audio.src = "";
             audio.load();
@@ -946,6 +950,8 @@
         function checkifpasslevel(num) {
             return pointstopassLevel() <= num;
         }
+
+
 
 
         function restartgame() {
