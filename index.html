@@ -63,7 +63,7 @@
         .bar {
             width: 5%;
             height: 100%;
-            background-color: #90ee90;
+            background-color: #2EFF2E;
             animation-name: bar;
             animation-iteration-count: 1;
             animation-duration: 5s;
@@ -1280,7 +1280,11 @@
                 if (keys.a) bird.x -= 0;
                 if (keys.d) bird.x += 0;
 
-
+            } else if (finishpage.style.display === "block") {
+                if (keys.w) bird.y -= 0;
+                if (keys.s) bird.y += 0;
+                if (keys.a) bird.x -= 0;
+                if (keys.d) bird.x += 0;
             } else {
 
 
@@ -1304,10 +1308,7 @@
 
 
             if (audio.ended) {
-                if (keys.w) bird.y -= 0;
-                if (keys.s) bird.y += 0;
-                if (keys.a) bird.x -= 0;
-                if (keys.d) bird.x += 0;
+
                 if (checkifpasslevel(totalpoints)) {
                     finishpage.style.display = "block"
                     finishpage.style.position = "absolute"
@@ -1324,8 +1325,6 @@
                     finishpagep.textContent = `points not enough, you are ${pointsdiff} points from passing `
                     clearInterval(interval1)
                 }
-
-
 
             }
 
