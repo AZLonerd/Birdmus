@@ -491,13 +491,14 @@
 
 
         const cross = document.querySelector(".cross")
+        let nameofthedefaultsong = ""
         champagneOcean.addEventListener("click", () => {
             default_audio.src = "Ehrling - Champagne Ocean [No copyright Music].mp3"
-            resultBox.textContent = "✅Ehrling - Champagne Ocean.mp3"
+            nameofthedefaultsong = "champagneOcean"
         })
         dancewithme.addEventListener("click", () => {
             default_audio.src = "Ehrling - Dance With Me.mp3"
-            resultBox.textContent = "✅Ehrling - Dance With Me.mp3"
+            nameofthedefaultsong = "danceWithme"
         })
 
 
@@ -730,6 +731,15 @@
             canvas.style.display = "block";
             introduction.style.display = "none";
             pointsdiv.style.display = "block";
+
+            if (nameofthedefaultsong === "champagneOcean") {
+                resultBox.textContent = "✅Ehrling - Champagne Ocean.mp3"
+
+            } else if (nameofthedefaultsong === "danceWithme") {
+
+                resultBox.textContent = "✅Ehrling - Dance With Me.mp3"
+            }
+
 
             uploadBox.style.display = "none";
             playBtn.style.display = "inline-block";
