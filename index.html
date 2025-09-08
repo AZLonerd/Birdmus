@@ -754,6 +754,7 @@
             setMusicprogressbar()
 
             playBtn.style.display = "none";
+
         });
 
 
@@ -780,11 +781,19 @@
 
             gameover.style.display = "none"
 
-            clearInterval(interval1)
+
             lastpointdeletetime = 0;
-            lastpointspawntime = 0
+            lastpointspawntime = 0;
 
+            lastBulletSpawnTime = 0;
+            pointsarr = []
+            clearBullets();
+            bulletx = 0;
 
+            bird.x = canvas.width / 8;
+            bird.y = canvas.height / 2;
+
+            clearInterval(interval1)
             canvas.style.display = 'none';
             introduction.style.display = "block";
 
@@ -806,7 +815,10 @@
             homebtn.style.display = "none";
             finishpage.style.display = "none";
             pause_page.style.display = "none";
-            bullets = []
+
+
+            baseSpeed = 0.3
+            baseDiagSpeed = 0.2;
             bar5width = 30
             document.querySelector(".defaultaudiocontainer").style.display = "block"
             initialinit = true;
