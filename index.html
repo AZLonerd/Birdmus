@@ -289,6 +289,27 @@
             height: 20px;
             background-color: yellow;
         }
+
+        .game-btn {
+            background-color: #222;
+            color: yellow;
+            border: 2px solid yellow;
+            border-radius: 8px;
+            margin-left: 10px;
+            padding: 10px 10px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .game-btn::after {
+            content: "What's the Hotkey?";
+        }
+
+        .game-btn:hover::after {
+            content: "WASD for movement"
+        }
     </style>
     <link rel="stylesheet" href="upload.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -299,7 +320,7 @@
         <p>Total points: <span class="pointspan">0</span>
             <span style="margin-left:20px; margin-right:10px; font-weight: 900;">⚠️collect</span><span
                 class="yellowsquare" style="margin-right:7px"></span>to get
-            points
+            points <button class="game-btn"></button>
         </p>
         <p class="ifpassedcheck" style="color: red;"><span class="cross">❌</span>You need <span
                 class="pointsneeded">0</span> points to pass
@@ -587,6 +608,21 @@
         let lastpointdeletetime = 0;
         const totalSlides = slides.length;
 
+        let targetColors = {
+            0: { r: 170, g: 170, b: 70 },
+            1: { r: 230, g: 180, b: 75 },
+            2: { r: 220, g: 170, b: 70 },
+            3: { r: 210, g: 120, b: 40 },
+            4: { r: 180, g: 90, b: 30 }
+        };
+
+        let stage = 0;
+        lastupdatebackgroundcolortime = 0;
+        let targetColor = targetColors[0];
+
+
+
+
         function updateSlider() {
             allslide.style.transform = `translateX(${-currentIndex * 200}px)`;
 
@@ -720,7 +756,13 @@
             setTimeout(() => {
                 const audioURL = URL.createObjectURL(file);
                 audio.src = audioURL;
-                resultBox.textContent = `✅ Ready: ${file.name}`;
+
+                const maxLen = 50;
+                let displayName = file.name;
+                if (displayName.length > maxLen) {
+                    displayName = displayName.substring(0, maxLen - 3) + "...";
+                }
+                resultBox.textContent = `✅ Ready: ${displayName}`;
             }, 5000);
         }
 
@@ -792,6 +834,9 @@
             gameover.style.display = "none"
 
 
+
+
+
             lastpointdeletetime = 0;
             lastpointspawntime = 0;
 
@@ -833,6 +878,9 @@
             document.querySelector(".defaultaudiocontainer").style.display = "block"
             initialinit = true;
 
+            stage = 0;
+            lastupdatebackgroundcolortime = 0;
+            targetColor = targetColors[0];
 
             audio.src = "";
             audio.load();
@@ -984,6 +1032,12 @@
 
 
             gameover.style.display = "none"
+
+
+
+            stage = 0;
+            lastupdatebackgroundcolortime = 0;
+            targetColor = targetColors[0];
 
             if (pause_page) pause_page.style.display = "none";
             playBtn.style.display = "inline-block";
@@ -1156,7 +1210,6 @@
         function Checkclimaxreached() {
 
             let total = 0
-            let stage = 0;
             if (climaxoverlast3s.length >= 5) {
 
                 for (let i = 0; i < 5; i++) {
@@ -1184,7 +1237,7 @@
                 return stage;
             }
 
-            return
+            return stage;
         }
 
 
@@ -1287,6 +1340,25 @@
         }
 
         let requirementnotreached = true;
+
+        let currentColor = { r: 26, g: 26, b: 26 }; // initial RGB
+
+        function lerpColor(c1, c2, t) {
+            return {
+                r: c1.r + (c2.r - c1.r) * t,
+                g: c1.g + (c2.g - c1.g) * t,
+                b: c1.b + (c2.b - c1.b) * t
+            };
+        }
+
+
+
+        function rgbToString(c) {
+            return `rgb(${Math.round(c.r)},${Math.round(c.g)},${Math.round(c.b)})`;
+        }
+
+
+
         function masterLoop() {
             if (stopped) return;
             animationFrameId = requestAnimationFrame(masterLoop);
@@ -1295,6 +1367,10 @@
 
             g.update();
             g.draw();
+
+
+
+
 
             if (pause_page.style.display == "block") {
 
@@ -1485,7 +1561,25 @@
 
                 }
 
-                ctx.fillStyle = "#78C5F7";
+
+
+
+
+
+
+                if (audio.currentTime - lastupdatebackgroundcolortime > 10) {
+                    targetColor = targetColors[stage] || targetColors[0];
+
+                    console.log(targetColor)
+
+
+                    lastupdatebackgroundcolortime = audio.currentTime;
+                }
+
+                currentColor = lerpColor(currentColor, targetColor, 0.05);
+
+                ctx.fillStyle = rgbToString(currentColor);
+
 
                 const bar5 = { x: 0, y: 0, width: bar5width, height: canvas.height }
 
