@@ -217,8 +217,9 @@
         .pointsdiv {
             display: none;
             position: absolute;
-            left: 60%;
+            left: 55%;
             top: 0%;
+            width: 40%;
         }
 
         .defaultaudiocontainer {
@@ -310,6 +311,255 @@
         .game-btn:hover::after {
             content: "WASD for movement"
         }
+
+
+        .btntoreducecount {
+            position: fixed;
+            left: 47%;
+            transform: translateY(-50%);
+
+            width: 100px;
+            height: 50px;
+            display: none;
+
+
+            background: radial-gradient(circle at 30% 30%, #1a1a2e, #0f0f1f);
+            color: #fff;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+
+            border: 2px solid #00f0ff;
+
+            border-radius: 12px;
+            box-shadow: 0 0 15px #00f0ff, 0 0 30px #00f0ff, 0 0 45px #ff00ff;
+
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+
+            /* Pulsing animation */
+            animation: pulse 1s infinite ease-in-out;
+        }
+
+        /* Animation keyframes */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 15px #00f0ff, 0 0 30px #00f0ff, 0 0 45px #ff00ff;
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 25px #00f0ff, 0 0 50px #ff00ff, 0 0 75px #00ffea;
+            }
+
+            100% {
+                transform: scale(1);
+
+                box-shadow: 0 0 15px #00f0ff, 0 0 30px #00f0ff, 0 0 45px #ff00ff;
+            }
+        }
+
+        .btntoreducecount:hover {
+            transform: scale(1.05);
+
+            box-shadow: 0 0 30px #00f0ff, 0 0 60px #ff00ff, 0 0 90px #00ffea;
+        }
+
+        .btntoreducecount:active {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #00f0ff, 0 0 30px #ff00ff;
+        }
+
+        .numneedtoclick {
+            position: fixed;
+            top: 1%;
+            left: 50%;
+            transform: translateX(-50%);
+
+            min-width: 80px;
+            padding: 12px 22px;
+
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-align: center;
+            color: #00f6ff;
+
+            background: radial-gradient(circle at top, #0b1d3a, #040812);
+            border: 2px solid #00f6ff;
+            border-radius: 14px;
+
+            box-shadow:
+                0 0 10px #00f6ff,
+                0 0 25px rgba(0, 246, 255, 0.6),
+                inset 0 0 12px rgba(0, 246, 255, 0.4);
+
+            text-shadow:
+                0 0 6px #00f6ff,
+                0 0 12px #00f6ff;
+
+            user-select: none;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .tp-meter {
+            position: fixed;
+            top: 10px;
+            left: 15%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            /* vertically center items */
+            gap: 10px;
+        }
+
+        .teleporttext {
+            font-family: "Orbitron", "Trebuchet MS", sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: #00f6ff;
+            letter-spacing: 1px;
+            padding: 4px 8px;
+            margin: 0;
+
+            text-shadow:
+                0 0 4px #00f6ff,
+                0 0 8px rgba(0, 246, 255, 0.6),
+                0 0 12px rgba(0, 246, 255, 0.4);
+
+            transition: 0.2s ease;
+            user-select: none;
+        }
+
+        .tp-segment {
+            width: 55px;
+            height: 14px;
+            border-radius: 20px;
+
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid #8be9ff;
+            box-shadow: inset 0 0 6px rgba(139, 233, 255, 0.4);
+
+            opacity: 0.25;
+            transition: 0.2s ease;
+        }
+
+        .tp-segment.active {
+            opacity: 1;
+            background: linear-gradient(90deg, #00f6ff, #00ffd5);
+            box-shadow:
+                0 0 8px #00f6ff,
+                0 0 18px rgba(0, 246, 255, 0.8);
+        }
+
+
+        .pointsp {
+            display: inline-flex;
+            align-items: center;
+            gap: 22px;
+            white-space: nowrap;
+
+            margin: 10px auto;
+            padding: 12px 28px;
+
+            background: linear-gradient(145deg, rgba(5, 10, 30, 0.9), rgba(10, 20, 60, 0.85));
+            border: 2px solid rgba(120, 180, 255, 0.6);
+            border-radius: 14px;
+
+            box-shadow:
+                0 0 12px rgba(120, 180, 255, 0.4),
+                inset 0 0 12px rgba(120, 180, 255, 0.2);
+
+            font-family: "Orbitron", "Trebuchet MS", sans-serif;
+            font-size: 16px;
+            color: white;
+            letter-spacing: 1px;
+            user-select: none;
+        }
+
+
+        .pointsp .pointspan {
+            font-size: 22px;
+            font-weight: bold;
+            color: yellow;
+            text-shadow: 0 0 10px rgba(255, 216, 77, 0.9);
+        }
+
+
+        .pointsp .bluepointsspan {
+            font-size: 22px;
+            font-weight: bold;
+            color: #4dc3ff;
+            text-shadow: 0 0 10px rgba(77, 195, 255, 0.9);
+        }
+
+        .pointsp {
+            animation: hudGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes hudGlow {
+            from {
+                box-shadow: 0 0 10px rgba(120, 180, 255, 0.3),
+                    inset 0 0 10px rgba(120, 180, 255, 0.15);
+            }
+
+            to {
+                box-shadow: 0 0 22px rgba(120, 180, 255, 0.7),
+                    inset 0 0 14px rgba(120, 180, 255, 0.25);
+            }
+        }
+
+        .teleporttext {
+
+            font-family: "Orbitron", "Trebuchet MS", sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: #00f6ff;
+            letter-spacing: 1px;
+            margin-right: 8px;
+
+
+
+            transition: 0.2s ease;
+            padding-top: 30px;
+            user-select: none;
+            margin-bottom: 30px;
+        }
+
+        .leftbtn,
+        .rightbtn {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            background: #1c2230;
+            /* dark space panel */
+            border: 1px solid #3a4156;
+            /* subtle edge */
+            color: #cfd6e6;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .leftbtn::before {
+            content: "◀";
+        }
+
+        .rightbtn::before {
+            content: "▶";
+        }
+
+        .leftbtn:hover,
+        .rightbtn:hover {
+            background: #242b3d;
+            /* very subtle feedback */
+        }
+
+        .leftbtn:active,
+        .rightbtn:active {
+            background: #141926;
+        }
     </style>
     <link rel="stylesheet" href="upload.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -317,16 +567,33 @@
 
 <body>
     <div class="pointsdiv">
-        <p>Total points: <span class="pointspan">0</span>
-            <span style="margin-left:20px; margin-right:10px; font-weight: 900;">⚠️collect</span><span
-                class="yellowsquare" style="margin-right:7px"></span>to get
-            points <button class="game-btn"></button>
+        <div style="display: flex;">
+            <p class="pointsp">Total yellow points: <span class="pointspan">0</span>
+                <span>total blue points <span class="bluepointsspan">0</span></span>
+            <div class="tp-meter" id="tpMeter">
+                <p class="teleporttext">Teleport:</p>
+                <div class="tp-segment"></div>
+                <div class="tp-segment"></div>
+                <div class="tp-segment"></div>
+                <div class="tp-segment"></div>
+                <div class="tp-segment"></div>
+            </div>
+            </p>
+        </div>
+        <p class="" style="color: red; margin-top:-5px">
+
+            <span class="cross">❌</span>
+            <span class="ifpassedcheck">you need <span class="pointsneeded">0</span> yellow points to pass</span>
+
+            <span class="bluepointsneededcheck" style="margin-left: 5%; color:red "><span class="cross2">❌</span>you
+                need
+                <span class="bluepointsneededspan">0</span> blue points to
+                pass
+            </span>
         </p>
-        <p class="ifpassedcheck" style="color: red;"><span class="cross">❌</span>You need <span
-                class="pointsneeded">0</span> points to pass
-        </p>
+
     </div>
-    <div class="upload select">
+    <div class=" upload select">
         <div class="upload-select" id="uploadBox" style="margin:auto">
             <p class="plus-icon">+</p>
             <input class="inputbox" type="file" accept=".mp3,audio/*" hidden />
@@ -347,30 +614,47 @@
             <button class="tutorialbtn"><span class="exclaimation">!!</span>tutorial</button>
             <div class="tutorial" style="display: none;">
 
-                <div class="container2" style=" background-color: blue;">
+                <div class="container2" style="width: 200px">
                     <div class="allslide">
                         <div class="slide">
-                            <img src="wasd.PNG" width="200px" height="200px" />
+                            <img src="uploadmusic.PNG" width="200px" height="200px" />
                         </div>
                         <div class="slide">
-                            <img src="soundwavefinal.PNG" width="200px" height="200px" />
+                            <img src="wasdfor.PNG" width="200px" height="200px" />
                         </div>
                         <div class="slide">
-                            <img src="dodge final.PNG" width="200px" height="200px" />
+                            <img src="dodgesound4.PNG" width="200px" height="200px" />
                         </div>
+                        <div class="slide">
+                            <img src="contacting yellow.PNG" width="200px" height="200px" />
+                        </div>
+                        <div class="slide">
+                            <img src="bluepoints2.PNG" width="200px" height="200px" />
+                        </div>
+                        <div class="slide">
+                            <img src="tpinstructionfinal.PNG" width="200px" height="200px" />
+                        </div>
+
                     </div>
 
                     <div class="indicator">
                         <span class="active"></span>
                         <span></span>
                         <span></span>
-
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
 
                 </div>
             </div>
         </div>
-
+        <div style="position: fixed; left:79%; top:49%">
+            <button class="leftbtn" style="visibility: hidden;"></button>
+        </div>
+        <div style="position: fixed; left: 90%; top:49%">
+            <button class="rightbtn" style="visibility: hidden;"></button>
+        </div>
         <div class="defaultaudiocontainer" style="margin-top: 20px;">
             <p class="song-instruction">Don't got songs? Use some of the songs here</p>
             <div style="height:auto;" class="song-container">
@@ -455,8 +739,15 @@
             <div style="display: none;" class="music-progress-bar">
                 <div class="percentage"></div>
             </div>
-            <div class="progress-bar-finish" style="display: none;">Finish</div>
+            <div class="progress-bar-finish" style="display: none;user-select: none;">Finish</div>
         </div>
+
+        <div>
+            <button class="btntoreducecount"
+                style="width: 100px; height: 50px; display: none;user-select: none;">Click!!!</button>
+        </div>
+
+        <div class="numneedtoclick" style="display: none;"></div>
 
         <div class="gobacktohomecontainer">
             <button id="HomepageBtn" style="display: none">
@@ -510,9 +801,16 @@
         const default_audio2 = document.querySelector(".default-audio-two")
         const pointsdiv = document.querySelector(".pointsdiv")
 
-
+        const btntoreducecount = document.querySelector(".btntoreducecount")
         const cross = document.querySelector(".cross")
+        const cross2 = document.querySelector(".cross2")
+        const numneedtoclick = document.querySelector(".numneedtoclick")
+        const bluepointsneededspan = document.querySelector(".bluepointsneededspan")
+        const bluepointsspan = document.querySelector(".bluepointsspan")
         let nameofthedefaultsong = ""
+
+        const leftbtn = document.querySelector(".leftbtn")
+        const rightbtn = document.querySelector(".rightbtn")
         champagneOcean.addEventListener("click", () => {
             default_audio.src = "Ehrling - Champagne Ocean [No copyright Music].mp3"
             nameofthedefaultsong = "champagneOcean"
@@ -523,16 +821,25 @@
         })
 
 
+        const bulletImg = new Image();
+        bulletImg.src = "meteor3.png";
+
+
 
         tutorialbtn.addEventListener("click", () => {
             if (tutorial.style.display === "block") {
                 tutorial.style.display = "none";
                 tutorialbtn.innerHTML = "tutorial";
+                leftbtn.style.visibility = "hidden"
+                rightbtn.style.visibility = "hidden"
                 tutorialbtn.classList.remove("closebtn");
             } else {
                 tutorial.style.display = "block";
                 tutorialbtn.innerHTML = "close";
+                leftbtn.style.visibility = "visible"
+                rightbtn.style.visibility = "visible"
                 tutorialbtn.classList.add("closebtn");
+
             }
         });
 
@@ -540,6 +847,10 @@
 
 
         let shouldWarn = true;
+
+        let requirementnotreached = true;
+        let requirementnotreached2 = true;
+
 
         window.addEventListener("beforeunload", function (event) {
             if (shouldWarn) {
@@ -550,6 +861,8 @@
 
             }
         });
+
+
 
         const moveSpeed = 3;
         let isInit = false;
@@ -603,9 +916,28 @@
 
         let pointsarr = [];
 
+        let isatloadingpage = false;
+
+
+        let targetpositionarr = [];
+        const targetpositionimage = new Image();
+        targetpositionimage.src = "portal.png"; // your image path
+
+
+        let inittargetpositionarr = true;
+
         let totalpoints = 0;
+        let totalbluepoints = 0
+
+        let bluepointsneeded = 0;
+
+
         let lastpointspawntime = 0;
         let lastpointdeletetime = 0;
+
+        let lasttargetpositionspawntime = 0;
+        let lasttargetpositondissapeartime = 0;
+
         const totalSlides = slides.length;
 
         let targetColors = {
@@ -620,8 +952,32 @@
         lastupdatebackgroundcolortime = 0;
         let targetColor = targetColors[0];
 
+        let spawnfrequencyfortargetposition
+        let timesneedtoclick
+        let targetpositiondissapeartime
 
 
+        let timelefttoteleport = 5
+        const MAX_TP = 5;
+        let teleportEnabled = false;
+
+
+
+        leftbtn.addEventListener("click", () => {
+            if (currentIndex == 0) {
+                return
+            }
+            currentIndex -= 1;
+            updateSlider();
+        })
+
+        rightbtn.addEventListener("click", () => {
+            if (currentIndex > indicatorSpans.length - 2) {
+                return
+            }
+            currentIndex += 1;
+            updateSlider();
+        })
 
         function updateSlider() {
             allslide.style.transform = `translateX(${-currentIndex * 200}px)`;
@@ -637,6 +993,9 @@
                 updateSlider();
             })
         })
+
+
+
 
         function setMusicprogressbar() {
 
@@ -655,6 +1014,7 @@
         }
 
         const ifpassedcheck = document.querySelector(".ifpassedcheck")
+        const bluepointsneededcheck = document.querySelector(".bluepointsneededcheck")
 
         let audioDuration;
         const repeatedTimes = Math.floor(audioDuration / 5) + 1;
@@ -669,6 +1029,8 @@
 
         let bulletbar = [];
 
+        let numberneedtoclick;
+        let collisionActive = false;
 
         resumebutton.addEventListener("click", () => {
             pause_page.style.display = "none";
@@ -691,6 +1053,7 @@
 
 
         })
+
 
 
 
@@ -787,8 +1150,12 @@
             playBtn.style.display = "inline-block";
             resultBox.style.display = "block";
             mustbe.style.display = "none";
+            isatloadingpage = true;
+            leftbtn.style.visibility = "hidden"
+            rightbtn.style.visibility = "hidden"
 
             pointsneed.innerHTML = pointstopassLevel();
+            bluepointsneededspan.innerHTML = bluepointstopassLevel();
         });
 
 
@@ -797,7 +1164,7 @@
             music_progress_bar.style.marginRight = "auto"
             progressContainer.style.marginRight = "auto"
             progressFinish.style.display = "block"
-
+            isatloadingpage = false
 
             startinterval();
             audioDuration = audio.duration;
@@ -857,9 +1224,12 @@
             uploadBox.style.display = "flex";
             playBtn.style.display = "none";
 
-            ifpassedcheck.style.color = "red"
+
             cross.innerHTML = "❌"
             requirementnotreached = true;
+            requirementnotreached2 = true;
+            currentIndex = 0;
+            updateSlider();
 
             bar.style.display = "none";
             plus.style.display = "block";
@@ -871,7 +1241,7 @@
             finishpage.style.display = "none";
             pause_page.style.display = "none";
 
-
+            teleportEnabled = false;
             baseSpeed = 0.3
             baseDiagSpeed = 0.2;
             bar5width = 30
@@ -881,6 +1251,26 @@
             stage = 0;
             lastupdatebackgroundcolortime = 0;
             targetColor = targetColors[0];
+
+
+            leftbtn.style.visibility = "hidden"
+            rightbtn.style.visibility = "hidden"
+
+            targetpositionarr = []
+            lasttargetpositionspawntime = 0;
+            collisionActive = false;
+            lastpointspawntime = 0;
+            totalpoints = 0;
+            timelefttoteleport = 5
+            cross2.innerHTML = "❌"
+            inittargetpositionarr = true;
+            totalbluepoints = 0;
+            bluepointsspan.textContent = 0;
+            ifpassedcheck.style.color = "red"
+            bluepointsneededcheck.style.color = "red"
+            updateTPMeter();
+
+
 
             audio.src = "";
             audio.load();
@@ -959,20 +1349,55 @@
         const g = new Graph(40);
 
         const birdimg = new Image();
-        birdimg.src = "./birdimg2.png";
+        birdimg.src = "./bird2.png";
+
         let birdLoaded = false;
+
         birdimg.onload = () => {
             birdLoaded = true;
         };
 
 
-
         const bird = {
             x: canvas.width / 8,
             y: canvas.height / 2,
-            width: 38,
-            height: 38
+            width: 39,
+            height: 39,
+            hitboxes: [
+                { xOffset: 8, yOffset: 5, width: 25, height: 20 }, // head
+                { xOffset: 0, yOffset: 25, width: 39, height: 10 }, // wings/body
+                { xOffset: 10, yOffset: 35, width: 20, height: 10 }  // tail/feet
+            ]
         };
+
+
+
+
+        const segments = document.querySelectorAll(".tp-segment");
+
+        function updateTPMeter() {
+            segments.forEach((seg, index) => {
+                seg.classList.toggle("active", index < timelefttoteleport);
+            });
+        }
+
+        function useTeleport() {
+            if (timelefttoteleport > 0) {
+                timelefttoteleport--;
+                updateTPMeter();
+            }
+        }
+
+        function addTeleport(amount = 1) {
+            if (timelefttoteleport === 5) {
+                return;
+            }
+            timelefttoteleport += amount;
+            updateTPMeter();
+        }
+
+        updateTPMeter();
+
 
         const keys = { w: false, a: false, s: false, d: false };
         document.addEventListener('keydown', (e) => {
@@ -982,6 +1407,58 @@
             if (e.key in keys) keys[e.key] = false;
         });
 
+
+
+        function isGameActive() {
+
+            //isatloadingpage
+            return (
+                !isatloadingpage &&
+                pause_page.style.display !== "block" &&
+                gameover.style.display !== "block" &&
+                finishpage.style.display !== "block"
+            );
+        }
+
+
+        document.addEventListener("keydown", (e) => {
+            if (!isGameActive()) {
+                teleportEnabled = false;
+                return;
+            }
+            if ((e.key === "t" || e.key === "T") && !teleportEnabled) {
+                if (timelefttoteleport > 0) {
+                    useTeleport();
+                    teleportEnabled = true;
+                    console.log("Teleport enabled! Click on canvas to teleport.");
+                }
+            }
+        });
+
+
+        canvas.addEventListener("click", (e) => {
+            if (!isGameActive()) {
+                teleportEnabled = false;
+                return;
+            }
+
+            if (teleportEnabled) {
+                const rect = canvas.getBoundingClientRect();
+
+
+                let mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);
+                let mouseY = (e.clientY - rect.top) * (canvas.height / rect.height);
+
+
+                bird.x = mouseX - bird.width / 2;
+                bird.y = mouseY - bird.height / 2;
+
+                teleportEnabled = false;
+                console.log(`Teleported to (${bird.x}, ${bird.y})`);
+            }
+        });
+
+
         function isColliding(rect1, rect2) {
             return (
                 rect1.x < rect2.x + rect2.width &&
@@ -990,6 +1467,50 @@
                 rect1.y + rect1.height > rect2.y
             );
         }
+
+
+        //check if rect2 is inside rect1
+        function isInside(rect1, rect2) {
+            return (
+                rect2.x >= rect1.x &&
+                rect2.y >= rect1.y &&
+                rect2.x + rect2.width <= rect1.x + rect1.width &&
+                rect2.y + rect2.height <= rect1.y + rect1.height
+            );
+        }
+
+        function isCollidingcirrec(circle, rect) {
+            const closestX = Math.max(rect.x, Math.min(circle.x, rect.x + rect.width));
+            const closestY = Math.max(rect.y, Math.min(circle.y, rect.y + rect.height));
+
+            const dx = circle.x - closestX;
+            const dy = circle.y - closestY;
+
+            return dx * dx + dy * dy < circle.radius * circle.radius;
+        }
+
+
+
+        btntoreducecount.addEventListener("click", () => {
+
+            if (numberneedtoclick > 0) {
+                numberneedtoclick--;
+                numneedtoclick.innerHTML = numberneedtoclick;
+
+                if (numberneedtoclick === 0) {
+                    totalbluepoints += 100
+                    if ((Math.floor(totalbluepoints) / 100) % 2 === 1) {
+                        addTeleport();
+                    }
+                    numneedtoclick.style.display = "none"
+                    bluepointsspan.innerHTML = totalbluepoints
+                }
+            }
+
+
+        })
+
+
 
 
 
@@ -1009,17 +1530,31 @@
 
 
 
+        function generatepointstopass(divisor) {
 
-        //pointsneedtopasslevel
-        function pointstopassLevel() {
-            const songduration = audio.duration;
-            const totalpointstopasslevel = (Math.floor(songduration / 20)) * 100
-            return totalpointstopasslevel;
+            return function result() {
+                const songduration = audio.duration;
+                const totalpointstopasslevel = 100 + (Math.floor(songduration / divisor)) * 100
+
+                return totalpointstopasslevel
+            }
         }
+
+        let pointstopassLevel = generatepointstopass(20);
+        let bluepointstopassLevel = generatepointstopass(35);
+
+
+
 
         function checkifpasslevel(num) {
             return pointstopassLevel() <= num;
         }
+
+        function checkifbluepointspasslevel(num) {
+            return bluepointstopassLevel() <= num
+        }
+
+
 
 
 
@@ -1044,9 +1579,10 @@
 
             lastpointdeletetime = 0;
 
-            ifpassedcheck.style.color = "red"
+
             cross.innerHTML = "❌"
             requirementnotreached = true;
+            requirementnotreached2 = true;
 
             progressFinish.style.display = "none"
 
@@ -1078,8 +1614,23 @@
             bird.y = canvas.height / 2;
             bar5width = 30;
             pointsarr = [];
+
+
+            teleportEnabled = false;
+            targetpositionarr = []
+            lasttargetpositionspawntime = 0;
+            collisionActive = false;
             lastpointspawntime = 0;
             totalpoints = 0;
+            timelefttoteleport = 5
+            cross2.innerHTML = "❌"
+            inittargetpositionarr = true;
+            totalbluepoints = 0;
+            bluepointsspan.textContent = 0;
+            ifpassedcheck.style.color = "red"
+            bluepointsneededcheck.style.color = "red"
+            isatloadingpage = true;
+            updateTPMeter();
 
 
 
@@ -1152,6 +1703,23 @@
         }
 
 
+        function bulletmovementspeedup2() {
+            bullets.forEach(bullet => {
+                if (bullet.speedX > 0) {
+                    bullet.speedX += 0.35;
+                } else if (bullet.speedX < 0) {
+                    bullet.speedX -= 0.35;
+                }
+
+                if (bullet.speedY > 0) {
+                    bullet.speedY += 0.35;
+                } else if (bullet.speedY < 0) {
+                    bullet.speedY -= 0.35;
+                }
+            });
+        }
+
+
 
         function initBullets(num) {
 
@@ -1159,8 +1727,7 @@
                 let bullet = {
                     x: 0,
                     y: 0,
-                    width: 50,
-                    height: 23,
+                    radius: 15,
                     speedX: 0,
                     speedY: 0
                 };
@@ -1174,7 +1741,7 @@
 
                 } else if (num === 1) {
                     // Right to left
-                    bullet.x = canvas.width - bullet.width;
+                    bullet.x = canvas.width - bullet.radius;
                     bullet.y = randombulletYstarting();
                     bullet.speedX = -baseSpeed;
                     bullet.speedY = (i === 0 ? baseDiagSpeed : i === 2 ? -baseDiagSpeed : 0);
@@ -1185,17 +1752,15 @@
                     bullet.y = 0;
                     bullet.speedX = (i === 0 ? baseDiagSpeed : i === 2 ? -baseDiagSpeed : 0);
                     bullet.speedY = baseSpeed;
-                    bullet.height = 50;
-                    bullet.width = 23;
+
 
                 } else if (num === 3) {
                     // Bottom to top
                     bullet.x = randomXstarting();
-                    bullet.y = canvas.height - bullet.height;
+                    bullet.y = canvas.height - bullet.radius;
                     bullet.speedX = (i === 0 ? baseDiagSpeed : i === 2 ? -baseDiagSpeed : 0);
                     bullet.speedY = -baseSpeed;
-                    bullet.height = 50;
-                    bullet.width = 23;
+
                 }
 
                 bullets.push(bullet);
@@ -1250,6 +1815,9 @@
                 baseDiagSpeed = 0.4
                 ifclimaxreached = true;
                 bulletSpawnInterval = 8;
+
+                spawnfrequencyfortargetposition = 10
+                targetpositiondissapeartime = 12
                 if (bar5width < canvas.width / 2) {
                     bar5width += 1;
                 }
@@ -1260,6 +1828,9 @@
                 baseDiagSpeed = 0.5
                 ifclimaxreached = true;
                 bulletSpawnInterval = 7;
+                spawnfrequencyfortargetposition = 8
+                timesneedtoclick = 5
+                targetpositiondissapeartime = 11
                 if (bar5width < canvas.width / 2) {
                     bar5width += 2;
                 }
@@ -1270,6 +1841,9 @@
                 baseDiagSpeed = 0.7
                 ifclimaxreached = true;
                 bulletSpawnInterval = 6;
+                spawnfrequencyfortargetposition = 7
+                timesneedtoclick = 9
+                targetpositiondissapeartime = 10
                 if (bar5width < canvas.width / 2) {
                     bar5width += 3;
                 }
@@ -1280,6 +1854,9 @@
                 baseDiagSpeed = 0.8
                 ifclimaxreached = true;
                 bulletSpawnInterval = 5;
+                spawnfrequencyfortargetposition = 6
+                timesneedtoclick = 11
+                targetpositiondissapeartime = 9
                 if (bar5width < canvas.width / 2) {
                     bar5width += 4;
                 }
@@ -1288,7 +1865,9 @@
                 bulletSpawnInterval = 5.5;
                 baseSpeed = 0.3;
                 baseDiagSpeed = 0.2;
-
+                spawnfrequencyfortargetposition = 5
+                timesneedtoclick = 13
+                targetpositiondissapeartime = 8
             }
         }
 
@@ -1300,32 +1879,35 @@
 
 
 
+        function generatespawnpointbuilder(width, height, forceMiddle = false) {
+            return function () {
 
-        function generatespawnpointforpoints() {
-            const minX = 500 / 1910 * canvas.width;
-            const maxX = (canvas.width / 2) + minX;
-            const x = Math.floor(Math.random() * (maxX - minX) + minX);
+                const minX = (500 / 1910) * canvas.width;
+                const maxX = (canvas.width / 2) + minX;
+                const x = Math.floor(Math.random() * (maxX - minX) + minX);
 
+                let y;
 
-            const minY = (450 / 1080) * canvas.height;
-            const maxY = (500 / 1080) * canvas.height; // 230 + 40 = 270
+                if (forceMiddle) {
+                    // perfectly centered
+                    y = (canvas.height - height) / 2;
+                } else {
+                    // near the middle
+                    const centerY = canvas.height / 2;
+                    const spread = 40;
+                    y = Math.floor(Math.random() * (spread * 2) + (centerY - spread));
+                }
 
-            let y
-            let rand = Math.floor(Math.random() * 2)
-            if (rand == 1) {
-                y = Math.floor(Math.random() * (50) + (canvas.height / 2))
-            } else {
-                y = (canvas.height / 2) - Math.floor(Math.random() * 50)
+                return { x, y, width, height };
             }
-
-
-
-
-
-            const width = 25
-            const height = 25
-            return { x, y, width, height }
         }
+
+
+
+        let generatespawnpointforpoints = generatespawnpointbuilder(25, 25, false);
+        let generatespawnpointfortargetposition = generatespawnpointbuilder(70, 70, true);
+
+
 
 
 
@@ -1339,7 +1921,6 @@
             })
         }
 
-        let requirementnotreached = true;
 
         let currentColor = { r: 26, g: 26, b: 26 }; // initial RGB
 
@@ -1355,6 +1936,42 @@
 
         function rgbToString(c) {
             return `rgb(${Math.round(c.r)},${Math.round(c.g)},${Math.round(c.b)})`;
+        }
+
+        function determinehowmanytimestoclick(number) {
+            const currentime = Number(number);
+
+            if (currentime <= 20) {
+                return 12
+            } else if (currentime > 20 && currentime <= 40) {
+                return 10;
+            } else if (currentime > 40 && currentime <= 90) {
+                return 8;
+            } else if (currentime > 90 && currentime <= 140) {
+                return 6
+            } else {
+                return 3;
+            }
+        }
+
+
+
+
+
+        function throttle(fn, space) {
+
+            let lasttime = 0;
+
+
+            return function a(...args) {
+                let currenttime = Date.now();
+                if (currenttime - lasttime > space) {
+                    fn.apply(this, args)
+                    lasttime = currenttime
+                }
+
+                currenttime = Date.now();
+            }
         }
 
 
@@ -1374,10 +1991,12 @@
 
             if (pause_page.style.display == "block") {
 
+
                 if (keys.w) bird.y -= 0;
                 if (keys.s) bird.y += 0;
                 if (keys.a) bird.x -= 0;
                 if (keys.d) bird.x += 0;
+
             } else if (gameover.style.display === "block") {
                 if (keys.w) bird.y -= 0;
                 if (keys.s) bird.y += 0;
@@ -1400,6 +2019,7 @@
 
             if (birdLoaded) {
                 ctx.drawImage(birdimg, bird.x, bird.y, bird.width, bird.height);
+
             }
 
             if (checkifpasslevel(totalpoints) && requirementnotreached) {
@@ -1409,24 +2029,41 @@
 
             }
 
+            if (checkifbluepointspasslevel(totalbluepoints) && requirementnotreached2) {
+                bluepointsneededcheck.style.color = "green"
+                cross2.innerHTML = "✅"
+                requirementnotreached2 = false;
+            }
+
 
 
             if (audio.ended) {
 
-                if (checkifpasslevel(totalpoints)) {
+                if (checkifpasslevel(totalpoints) && checkifbluepointspasslevel(totalbluepoints)) {
                     finishpage.style.display = "block"
                     finishpage.style.position = "absolute"
 
                     pauseicon.style.display = "none"
-                    finishpagep.textContent = `You passed the song! your total points is ${totalpoints}`
+                    finishpagep.textContent = `You passed the song! your total points is ${totalpoints + totalbluepoints}`
                     clearInterval(interval1);
                 } else {
                     const pointsdiff = pointstopassLevel() - totalpoints
-
+                    const bluepointsdiff = bluepointstopassLevel() - totalbluepoints
                     finishpage.style.display = "block"
                     gameover.style.opacity = "0"
 
-                    finishpagep.textContent = `points not enough, you are ${pointsdiff} points from passing `
+                    if (pointstopassLevel() === 100) {
+                        finishpagep.textContent = `points not enough, you are ${pointsdiff} yellow points and ${bluepointsdiff}blue points from passing(audio too short)`
+                    }
+
+                    if (pointsdiff > 0 && bluepointsdiff > 0) {
+                        finishpagep.textContent = `points not enough, you are ${pointsdiff} yellow points and ${bluepointsdiff} blue points from passing `
+                    } else if (pointsdiff > 0) {
+                        finishpagep.textContent = `points not enough, you are ${pointsdiff} yellow points from passing`
+                    } else if (bluepointsdiff > 0) {
+                        finishpagep.textContent = `points not enough, you are ${bluepointsdiff} blue points from passing`
+                    }
+
                     clearInterval(interval1)
                 }
 
@@ -1447,6 +2084,12 @@
                 ctx.fillStyle = "green"
 
                 if (!audio.paused) {
+
+                    const last25percent = Math.floor(audio.duration / 4)
+                    if (audio.duration - audio.currentTime < last25percent) {
+                        bulletSpawnInterval = 5;
+                        console.log("last 25 percent")
+                    }
 
                     if (audio.currentTime >= 1 && initialinit) {
                         initBullets(0);
@@ -1480,6 +2123,7 @@
                             bulletmovementspeedup();
 
                             if (audio.duration - audio.currentTime < 60) {
+                                console.log("last 60 seconds!")
                                 initBullets(1);
                                 initBullets(4);
                                 initBullets(0);
@@ -1493,19 +2137,15 @@
                             lastBulletSpawnTime = audio.currentTime;
                         }
                     } else if (bulletSpawnInterval === 5) {
-                        if (audio.currentTime - lastBulletSpawnTime > 3) {
+                        if (audio.currentTime - lastBulletSpawnTime > 2.5) {
 
-                            bulletmovementspeedup();
-                            if (audio.duration - audio.currentTime < 60) {
-                                initBullets(1);
-                                initBullets(4);
-                                initBullets(0);
-                                initBullets(2);
+                            bulletmovementspeedup2();
 
-                            } else {
-                                initBullets(1);
-                                initBullets(3);
-                            }
+                            initBullets(0);
+                            initBullets(1)
+                            initBullets(2);
+                            initBullets(3)
+
 
 
 
@@ -1523,12 +2163,42 @@
                     }
 
 
+
+
+
                     if (audio.currentTime - lastpointspawntime > 10) {
                         const pointspawn = generatespawnpointforpoints();
+
+
                         pointsarr.push(pointspawn);
                         lastpointspawntime = audio.currentTime;
 
                     }
+
+
+
+
+                    if (inittargetpositionarr) {
+                        targetpositionarr.push({ x: 500, y: 200, width: 70, height: 70 })
+                        inittargetpositionarr = false;
+                    }
+
+                    if (audio.currentTime - lasttargetpositionspawntime > 12) {
+                        collisionActive = true;
+                        numberneedtoclick = determinehowmanytimestoclick(audio.currentTime)
+                        numneedtoclick.style.display = "block"
+                        numneedtoclick.innerHTML = numberneedtoclick
+
+                        const targetpositionspawn = generatespawnpointfortargetposition();
+                        targetpositionarr.push(targetpositionspawn)
+                        if (targetpositionarr.length === 2) {
+                            targetpositionarr.shift();
+                        }
+                        lasttargetpositionspawntime = audio.currentTime;
+
+                    }
+
+
 
                     if (audio.currentTime - lastpointdeletetime > 25) {
                         pointsarr.shift()
@@ -1542,21 +2212,49 @@
 
 
 
-                    bullets.forEach((bullet, index) => {
-                        ctx.fillStyle = "green"
-                        bullet.x += bullet.speedX;
-                        bullet.y += bullet.speedY;
 
-                        ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+                    targetpositionarr.forEach((ele, index) => {
+                        if (index === 0) {
+                            ctx.drawImage(
+                                targetpositionimage,
+                                ele.x,
+                                ele.y,
+                                ele.width,
+                                ele.height
+                            );
+                        }
                     });
 
 
-                    bullets = bullets.filter(bullet =>
-                        bullet.x + bullet.width > 0 &&
-                        bullet.x < canvas.width &&
-                        bullet.y + bullet.height > 0 &&
-                        bullet.y < canvas.height
-                    );
+                    bullets.forEach((bullet) => {
+                        // move bullet
+                        bullet.x += bullet.speedX;
+                        bullet.y += bullet.speedY;
+
+                        // draw bullet image
+                        ctx.drawImage(
+                            bulletImg,
+                            bullet.x - bullet.radius,
+                            bullet.y - bullet.radius,
+                            bullet.radius * 2,
+                            bullet.radius * 2
+                        );
+
+                        // draw border around bullet (circle)
+                        ctx.beginPath();
+                        ctx.arc(bullet.x, bullet.y, bullet.radius, 0, 2 * Math.PI);
+                        ctx.strokeStyle = "yellow"; // border color
+                        ctx.lineWidth = 3;           // border thickness
+                        ctx.stroke();
+                    });
+
+
+                    // bullets = bullets.filter(bullet =>
+                    //     bullet.x + bullet.width > 0 &&
+                    //     bullet.x < canvas.width &&
+                    //     bullet.y + bullet.height > 0 &&
+                    //     bullet.y < canvas.height
+                    // );
 
 
                 }
@@ -1591,7 +2289,8 @@
 
                 for (let i = 0; i < len; i++) {
                     const data = dataArray[i];
-                    const barHeight = (data / 255) * height / 2.7
+                    const barHeight = (data / 255) * height / 4 + 10  //originally was 2.7
+
 
 
                     const x1 = i * barWidth + width / 2;
@@ -1613,7 +2312,7 @@
 
 
                     //collision to check if user dodged bullets and sound wave
-                    if ([bar1, bar2, bar3, bar4, bar5, bar6, ...bullets].some(bar => isColliding(bird, bar))) {
+                    if ([bar1, bar2, bar3, bar4, bar5, bar6].some(bar => isColliding(bird, bar))) {
 
                         stopped = true;
                         audio.pause();
@@ -1629,6 +2328,62 @@
 
                         return;
                     }
+
+                    if ([...bullets].some((circle) => {
+                        return isCollidingcirrec(circle, bird)
+                    })) {
+                        stopped = true;
+                        audio.pause();
+                        clearBullets();
+                        gameover.style.display = "block"
+                        btntoreducecount.style.display = "none"
+                        const percentdone = document.querySelector(".percentdone")
+                        percentdone.innerHTML = `you are ${percentagetodisplay.toFixed(2)}% done with the song`
+
+                        pauseicon.style.display = "none"
+                        homebtn.style.display = "none"
+
+                        return;
+                    }
+
+                    if ([...targetpositionarr].some(target => isInside(target, bird))) {
+
+                        btntoreducecount.style.display = "block";
+
+                        if (!collisionActive) {   //  only runs ONCE per collision
+                            collisionActive = true;
+
+                            const timestoclick = Math.floor(audio.currentTime);
+                            numberneedtoclick = determinehowmanytimestoclick(timestoclick);
+
+                            numneedtoclick.style.display = "block";
+                            numneedtoclick.innerHTML = numberneedtoclick;
+
+                        }
+
+                        if (numberneedtoclick === 0) {
+                            collisionActive = true;
+                            targetpositionarr.shift();
+                        }
+
+
+
+
+                    } else {
+                        btntoreducecount.style.display = "none";
+                        numneedtoclick.style.display = "none"
+                        collisionActive = false; // reset when no longer colliding
+                    }
+
+
+                }
+
+                if (pause_page.style.display === "block") {
+                    btntoreducecount.style.display = "none"
+                    if (keys.w) bird.y -= 0;
+                    if (keys.s) bird.y += 0;
+                    if (keys.a) bird.x -= 0;
+                    if (keys.d) bird.x += 0;
                 }
 
 
