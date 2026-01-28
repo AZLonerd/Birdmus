@@ -560,6 +560,18 @@
         .rightbtn:active {
             background: #141926;
         }
+
+
+        .slide-btn {
+            display: block;
+        }
+
+
+        @media (max-width: 1200px) {
+            .slide-btn {
+                display: none;
+            }
+        }
     </style>
     <link rel="stylesheet" href="upload.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -650,10 +662,10 @@
             </div>
         </div>
         <div style="position: fixed; left:79%; top:49%">
-            <button class="leftbtn" style="visibility: hidden;"></button>
+            <button class="slide-btn leftbtn" style="visibility: hidden;"></button>
         </div>
         <div style="position: fixed; left: 90%; top:49%">
-            <button class="rightbtn" style="visibility: hidden;"></button>
+            <button class="slide-btn rightbtn" style="visibility: hidden;"></button>
         </div>
         <div class="defaultaudiocontainer" style="margin-top: 20px;">
             <p class="song-instruction">Don't got songs? Use some of the songs here</p>
