@@ -1430,7 +1430,7 @@
                 if (timelefttoteleport > 0) {
                     useTeleport();
                     teleportEnabled = true;
-                    console.log("Teleport enabled! Click on canvas to teleport.");
+
                 }
             }
         });
@@ -1454,7 +1454,7 @@
                 bird.y = mouseY - bird.height / 2;
 
                 teleportEnabled = false;
-                console.log(`Teleported to (${bird.x}, ${bird.y})`);
+
             }
         });
 
@@ -2088,7 +2088,7 @@
                     const last25percent = Math.floor(audio.duration / 4)
                     if (audio.duration - audio.currentTime < last25percent) {
                         bulletSpawnInterval = 5;
-                        console.log("last 25 percent")
+
                     }
 
                     if (audio.currentTime >= 1 && initialinit) {
@@ -2123,7 +2123,7 @@
                             bulletmovementspeedup();
 
                             if (audio.duration - audio.currentTime < 60) {
-                                console.log("last 60 seconds!")
+
                                 initBullets(1);
                                 initBullets(4);
                                 initBullets(0);
@@ -2268,7 +2268,7 @@
                 if (audio.currentTime - lastupdatebackgroundcolortime > 10) {
                     targetColor = targetColors[stage] || targetColors[0];
 
-                    console.log(targetColor)
+
 
 
                     lastupdatebackgroundcolortime = audio.currentTime;
