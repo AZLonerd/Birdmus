@@ -7,7 +7,7 @@ upload.ondragenter = (e) => {
     e.preventDefault();
     upload.classList.add("dragover"); // Optional: highlight drop area
 };
-
+//
 upload.ondragover = (e) => {
     e.preventDefault();
 };
