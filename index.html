@@ -1446,6 +1446,7 @@
                 !isatloadingpage &&
                 pause_page.style.display !== "block" &&
                 gameover.style.display !== "block" &&
+                finishpagep.style.display !== "block" &&
                 finishpage.style.display !== "block"
             );
         }
@@ -2080,11 +2081,14 @@
 
                     pauseicon.style.display = "none"
                     finishpagep.textContent = `You passed the song! your total points is ${totalpoints + totalbluepoints}`
+
                     clearInterval(interval1);
                 } else {
                     const pointsdiff = pointstopassLevel() - totalpoints
                     const bluepointsdiff = bluepointstopassLevel() - totalbluepoints
                     finishpage.style.display = "block"
+
+
                     gameover.style.opacity = "0"
 
                     if (pointstopassLevel() === 100) {
@@ -2382,7 +2386,6 @@
                     }
 
                     if ([...targetpositionarr].some(target => isInside(target, bird))) {
-
                         btntoreducecount.style.display = "block";
 
                         if (!collisionActive) {   //  only runs ONCE per collision
@@ -2413,6 +2416,11 @@
 
                 }
 
+
+                if (!isGameActive()) {
+                    btntoreducecount.style.display = "none";
+
+                }
                 if (pause_page.style.display === "block") {
                     btntoreducecount.style.display = "none"
                     if (keys.w) bird.y -= 0;
