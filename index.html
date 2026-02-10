@@ -888,7 +888,9 @@
 
 
 
-        const moveSpeed = 3;
+        const moveSpeed = 400;
+        let lastTimeperform = performance.now();
+
         let isInit = false;
         let analyzer, dataArray;
         let stopped = false;
@@ -923,8 +925,8 @@
 
         let bulletfrequencyinterval = 10;
         let lastfrequencyTime = 0
-        let baseSpeed = 0.3
-        let baseDiagSpeed = 0.2;
+        let baseSpeed = 40
+        let baseDiagSpeed = 27
         let bullets = []
         let initialinit = true;
 
@@ -1055,6 +1057,9 @@
 
         let numberneedtoclick;
         let collisionActive = false;
+
+        let delta = 0
+        const MAXDELTA = 0.05
 
         resumebutton.addEventListener("click", () => {
             pause_page.style.display = "none";
@@ -1266,8 +1271,9 @@
             pause_page.style.display = "none";
 
             teleportEnabled = false;
-            baseSpeed = 0.3
-            baseDiagSpeed = 0.2;
+            baseSpeed = 40
+            baseDiagSpeed = 27
+            delta = 0;
             bar5width = 30
             document.querySelector(".defaultaudiocontainer").style.display = "block"
             initialinit = true;
@@ -1543,7 +1549,7 @@
                 interval1 = setInterval(() => {
                     if (stopped) return;
                     if (bar5width < canvas.width / 2) {
-                        bar5width += 3;
+                        bar5width += 2;
                     }
 
                     // move y upward as height grows
@@ -1612,8 +1618,9 @@
 
             clearInterval(interval1);
             stopped = false;
-            baseSpeed = 0.3
-            baseDiagSpeed = 0.2;
+            baseSpeed = 40
+            baseDiagSpeed = 27
+            delta = 0;
             clearBullets();
             bulletx = 0;
             lastBulletSpawnTime = 0;
@@ -1669,7 +1676,7 @@
 
 
 
-        function randombulletYstarting(leftorright) {
+        function randombulletYstarting() {
             let a
             let rand = Math.floor(Math.random() * 2)
             if (rand == 1) {
@@ -1683,6 +1690,7 @@
         function randomXstarting(leftorright) {
             //1910     /2 = 955
             const a = Math.floor(Math.random() * 300 + 1 + (canvas.width / 2 - 150))
+
             return a
         }
 
@@ -1713,15 +1721,15 @@
         function bulletmovementspeedup() {
             bullets.forEach(bullet => {
                 if (bullet.speedX > 0) {
-                    bullet.speedX += 0.2;
+                    bullet.speedX += 26 * delta;
                 } else if (bullet.speedX < 0) {
-                    bullet.speedX -= 0.2;
+                    bullet.speedX -= 26 * delta;
                 }
 
                 if (bullet.speedY > 0) {
-                    bullet.speedY += 0.2;
+                    bullet.speedY += 26 * delta;
                 } else if (bullet.speedY < 0) {
-                    bullet.speedY -= 0.2;
+                    bullet.speedY -= 26 * delta;
                 }
             });
         }
@@ -1730,15 +1738,15 @@
         function bulletmovementspeedup2() {
             bullets.forEach(bullet => {
                 if (bullet.speedX > 0) {
-                    bullet.speedX += 0.35;
+                    bullet.speedX += 45.5 * delta;
                 } else if (bullet.speedX < 0) {
-                    bullet.speedX -= 0.35;
+                    bullet.speedX -= 45.5 * delta;
                 }
 
                 if (bullet.speedY > 0) {
-                    bullet.speedY += 0.35;
+                    bullet.speedY += 45.5 * delta;
                 } else if (bullet.speedY < 0) {
-                    bullet.speedY -= 0.35;
+                    bullet.speedY -= 45.5 * delta;
                 }
             });
         }
@@ -1760,30 +1768,30 @@
                     // Left to right
                     bullet.x = 0;
                     bullet.y = randombulletYstarting();
-                    bullet.speedX = baseSpeed;
-                    bullet.speedY = (i === 0 ? baseDiagSpeed : i === 2 ? -baseDiagSpeed : 0);
+                    bullet.speedX = baseSpeed * delta;
+                    bullet.speedY = (i === 0 ? baseDiagSpeed * delta : i === 2 ? -baseDiagSpeed * delta : 0);
 
                 } else if (num === 1) {
                     // Right to left
                     bullet.x = canvas.width - bullet.radius;
                     bullet.y = randombulletYstarting();
-                    bullet.speedX = -baseSpeed;
-                    bullet.speedY = (i === 0 ? baseDiagSpeed : i === 2 ? -baseDiagSpeed : 0);
+                    bullet.speedX = -baseSpeed * delta;
+                    bullet.speedY = (i === 0 ? baseDiagSpeed * delta : i === 2 ? -baseDiagSpeed * delta : 0);
 
                 } else if (num === 2) {
                     // Top to bottom
                     bullet.x = randomXstarting();
                     bullet.y = 0;
-                    bullet.speedX = (i === 0 ? baseDiagSpeed : i === 2 ? -baseDiagSpeed : 0);
-                    bullet.speedY = baseSpeed;
+                    bullet.speedX = (i === 0 ? baseDiagSpeed * delta : i === 2 ? -baseDiagSpeed * delta : 0);
+                    bullet.speedY = baseSpeed * delta;
 
 
                 } else if (num === 3) {
                     // Bottom to top
                     bullet.x = randomXstarting();
                     bullet.y = canvas.height - bullet.radius;
-                    bullet.speedX = (i === 0 ? baseDiagSpeed : i === 2 ? -baseDiagSpeed : 0);
-                    bullet.speedY = -baseSpeed;
+                    bullet.speedX = (i === 0 ? baseDiagSpeed * delta : i === 2 ? -baseDiagSpeed * delta : 0);
+                    bullet.speedY = -baseSpeed * delta;
 
                 }
 
@@ -1835,8 +1843,8 @@
 
             const reachedstage1 = Checkclimaxreached();
             if (reachedstage1 === 1) {
-                baseSpeed = 0.5
-                baseDiagSpeed = 0.4
+                baseSpeed = 66.5
+                baseDiagSpeed = 53
                 ifclimaxreached = true;
                 bulletSpawnInterval = 8;
 
@@ -1848,8 +1856,8 @@
 
 
             } else if (reachedstage1 === 2) {
-                baseSpeed = 0.7
-                baseDiagSpeed = 0.5
+                baseSpeed = 93.1
+                baseDiagSpeed = 66.5
                 ifclimaxreached = true;
                 bulletSpawnInterval = 7;
                 spawnfrequencyfortargetposition = 8
@@ -1861,8 +1869,8 @@
 
 
             } else if (reachedstage1 === 3) {
-                baseSpeed = 0.8
-                baseDiagSpeed = 0.7
+                baseSpeed = 106
+                baseDiagSpeed = 93
                 ifclimaxreached = true;
                 bulletSpawnInterval = 6;
                 spawnfrequencyfortargetposition = 7
@@ -1874,8 +1882,8 @@
 
 
             } else if (reachedstage1 === 4) {
-                baseSpeed = 1
-                baseDiagSpeed = 0.8
+                baseSpeed = 133
+                baseDiagSpeed = 106
                 ifclimaxreached = true;
                 bulletSpawnInterval = 5;
                 spawnfrequencyfortargetposition = 6
@@ -1887,8 +1895,8 @@
 
             } else {
                 bulletSpawnInterval = 5.5;
-                baseSpeed = 0.3;
-                baseDiagSpeed = 0.2;
+                baseSpeed = 40;
+                baseDiagSpeed = 26;
                 spawnfrequencyfortargetposition = 5
                 timesneedtoclick = 13
                 targetpositiondissapeartime = 8
@@ -2000,8 +2008,11 @@
 
 
 
-        function masterLoop() {
+        function masterLoop(now) {
             if (stopped) return;
+            delta = Math.min((now - lastTimeperform) / 1000, MAXDELTA);
+            lastTimeperform = now;
+
             animationFrameId = requestAnimationFrame(masterLoop);
             const { width, height } = canvas;
             ctx.clearRect(0, 0, width, height);
@@ -2035,10 +2046,10 @@
             } else {
 
 
-                if (keys.w) bird.y -= moveSpeed;
-                if (keys.s) bird.y += moveSpeed;
-                if (keys.a) bird.x -= moveSpeed;
-                if (keys.d) bird.x += moveSpeed;
+                if (keys.w) bird.y -= moveSpeed * delta;
+                if (keys.s) bird.y += moveSpeed * delta;
+                if (keys.a) bird.x -= moveSpeed * delta;
+                if (keys.d) bird.x += moveSpeed * delta;
             }
 
             if (birdLoaded) {
