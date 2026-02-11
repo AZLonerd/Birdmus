@@ -1722,15 +1722,15 @@
         function bulletmovementspeedup() {
             bullets.forEach(bullet => {
                 if (bullet.speedX > 0) {
-                    bullet.speedX += 26 * delta;
+                    bullet.speedX += 20 * delta;
                 } else if (bullet.speedX < 0) {
-                    bullet.speedX -= 26 * delta;
+                    bullet.speedX -= 20 * delta;
                 }
 
                 if (bullet.speedY > 0) {
-                    bullet.speedY += 26 * delta;
+                    bullet.speedY += 20 * delta;
                 } else if (bullet.speedY < 0) {
-                    bullet.speedY -= 26 * delta;
+                    bullet.speedY -= 20 * delta;
                 }
             });
         }
@@ -1739,15 +1739,15 @@
         function bulletmovementspeedup2() {
             bullets.forEach(bullet => {
                 if (bullet.speedX > 0) {
-                    bullet.speedX += 45.5 * delta;
+                    bullet.speedX += 35 * delta;
                 } else if (bullet.speedX < 0) {
-                    bullet.speedX -= 45.5 * delta;
+                    bullet.speedX -= 35 * delta;
                 }
 
                 if (bullet.speedY > 0) {
-                    bullet.speedY += 45.5 * delta;
+                    bullet.speedY += 35 * delta;
                 } else if (bullet.speedY < 0) {
-                    bullet.speedY -= 45.5 * delta;
+                    bullet.speedY -= 35 * delta;
                 }
             });
         }
@@ -1814,17 +1814,17 @@
                     total += climaxoverlast3s[i];
                 }
                 let averageMusicvolume = Math.floor(total / 5);
-
-                if (averageMusicvolume > 220 && averageMusicvolume < 230) {
-
+                if (averageMusicvolume < 190) {
                     stage = 1
-                } else if (averageMusicvolume >= 230 && averageMusicvolume < 240) {
+                } else if (averageMusicvolume >= 190 && averageMusicvolume < 210) {
+                    stage = 1
+                } else if (averageMusicvolume >= 215 && averageMusicvolume < 225) {
 
                     stage = 2
-                } else if (averageMusicvolume >= 240 && averageMusicvolume < 250) {
+                } else if (averageMusicvolume >= 230 && averageMusicvolume < 235) {
 
                     stage = 3;
-                } else if (averageMusicvolume > 250) {
+                } else if (averageMusicvolume >= 235 && averageMusicvolume < 245) {
 
                     stage = 4
                 } else {
@@ -1843,6 +1843,7 @@
         function CheckifClimax() {
 
             const reachedstage1 = Checkclimaxreached();
+            console.log(reachedstage1)
             if (reachedstage1 === 1) {
                 baseSpeed = 66.5
                 baseDiagSpeed = 53
@@ -2135,7 +2136,7 @@
                         initialinit = false;
                     }
 
-                    if (audio.currentTime - lastfrequencyTime > 10) {
+                    if (audio.currentTime - lastfrequencyTime > 8) {
                         lastfrequencyTime = audio.currentTime;
                         CheckifClimax();
                     }
@@ -2267,8 +2268,9 @@
 
                     bullets.forEach((bullet) => {
                         // move bullet
-                        bullet.x += bullet.speedX;
-                        bullet.y += bullet.speedY;
+                        bullet.x += Math.min(bullet.speedX, 1);
+                        bullet.y += Math.min(bullet.speedY, 1)
+
 
                         // draw bullet image
                         ctx.drawImage(
