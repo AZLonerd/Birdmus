@@ -1404,16 +1404,13 @@
 
         function useTeleport() {
             if (timelefttoteleport > 0) {
-                timelefttoteleport--;
+                timelefttoteleport = Math.max(0, timelefttoteleport - 1);
                 updateTPMeter();
             }
         }
 
         function addTeleport(amount = 1) {
-            if (timelefttoteleport === 5) {
-                return;
-            }
-            timelefttoteleport += amount;
+            timelefttoteleport = Math.min(5, timelefttoteleport + amount);
             updateTPMeter();
         }
 
@@ -1444,6 +1441,7 @@
 
 
         document.addEventListener("keydown", (e) => {
+            if (e.repeat) return;
             if (!isGameActive()) {
                 teleportEnabled = false;
                 return;
