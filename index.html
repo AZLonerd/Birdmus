@@ -17,13 +17,19 @@
         .upload-select {
             width: 120px;
             height: 120px;
-            border: 2px dashed #555;
-            border-radius: 10px;
+            border: 2px dashed #6cf2ff;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             margin-bottom: 20px;
+            background:
+                radial-gradient(circle at top, rgba(83, 168, 255, 0.22), transparent 60%),
+                linear-gradient(145deg, rgba(8, 18, 40, 0.88), rgba(20, 10, 42, 0.92));
+            box-shadow:
+                0 0 18px rgba(108, 242, 255, 0.28),
+                inset 0 0 18px rgba(108, 242, 255, 0.1);
         }
 
 
@@ -45,25 +51,29 @@
         #playBtn {
             padding: 10px 20px;
             font-size: 18px;
-            background: green;
-            color: white;
+            background: linear-gradient(135deg, #64f7ff, #6b8dff);
+            color: #07111f;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             display: none;
+            font-weight: 800;
+            box-shadow: 0 0 18px rgba(100, 247, 255, 0.45);
         }
 
         .progress-bar {
             width: 100%;
             height: 15%;
-            background-color: gray;
+            background-color: rgba(141, 163, 196, 0.25);
             border-radius: 10%;
+            border: 1px solid rgba(108, 242, 255, 0.35);
+            overflow: hidden;
         }
 
         .bar {
             width: 5%;
             height: 100%;
-            background-color: #2EFF2E;
+            background: linear-gradient(90deg, #59f1ff, #ac7cff);
             animation-name: bar;
             animation-iteration-count: 1;
             animation-duration: 5s;
@@ -79,7 +89,7 @@
         .music-progress-bar {
             position: relative;
             height: 50px;
-            width: 300px;
+            width: 20vw;
             background-color: #0096FF
         }
 
@@ -94,15 +104,19 @@
         #HomepageBtn {
             width: 200px;
             height: 40px;
-            background-color: rgb(0, 0, 0, 0.8);
+            background: linear-gradient(135deg, rgba(9, 20, 45, 0.95), rgba(30, 12, 54, 0.92));
             transition: 0.3s;
             font-weight: 800;
-            color: gold;
+            color: #8ef7ff;
+            border: 1px solid rgba(142, 247, 255, 0.6);
+            border-radius: 12px;
+            box-shadow: 0 0 18px rgba(108, 242, 255, 0.22);
         }
 
         #HomepageBtn:hover {
             cursor: pointer;
-            background-color: grey;
+            background: linear-gradient(135deg, rgba(18, 36, 72, 0.98), rgba(51, 21, 84, 0.95));
+            color: #ffd56a;
         }
 
 
@@ -113,11 +127,16 @@
             left: 50%;
             transform: translateX(-50%);
             width: 320px;
-            background: #2c2c2c;
+            background:
+                radial-gradient(circle at top, rgba(102, 208, 255, 0.18), transparent 55%),
+                linear-gradient(160deg, rgba(7, 14, 30, 0.97), rgba(24, 12, 46, 0.96));
             color: #fff;
             padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            border: 1px solid rgba(108, 242, 255, 0.45);
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.5),
+                0 0 28px rgba(108, 242, 255, 0.2);
             text-align: center;
             display: none;
 
@@ -134,19 +153,20 @@
 
         .finish-page button {
             padding: 10px 20px;
-            background: #4cafef;
+            background: linear-gradient(135deg, #5cf0ff, #7b86ff);
             border: none;
             border-radius: 8px;
-            color: #fff;
+            color: #08101b;
             font-weight: bold;
             cursor: pointer;
             transition: background 0.3s, transform 0.2s;
             margin: auto;
             display: block;
+            box-shadow: 0 0 16px rgba(92, 240, 255, 0.35);
         }
 
         .finish-page button:hover {
-            background: #2196f3;
+            background: linear-gradient(135deg, #8df6ff, #ac7cff);
             transform: translateY(-2px);
         }
 
@@ -166,16 +186,19 @@
         .tutorialbtn {
             width: 120px;
             height: 50px;
-            color: gold;
-            background-color: rgb(59, 59, 59);
+            color: #8ef7ff;
+            background: linear-gradient(135deg, rgba(10, 22, 45, 0.96), rgba(32, 12, 58, 0.95));
             font-weight: 800;
+            border: 1px solid rgba(142, 247, 255, 0.5);
+            border-radius: 14px;
+            box-shadow: 0 0 18px rgba(108, 242, 255, 0.2);
 
         }
 
         .tutorialbtn:hover {
             cursor: pointer;
-            color: darkcyan;
-            background-color: rgb(59, 59, 59);
+            color: #ffd56a;
+            background: linear-gradient(135deg, rgba(18, 36, 72, 0.98), rgba(58, 19, 82, 0.96));
             font-weight: 800;
 
         }
@@ -226,7 +249,6 @@
             font-family: sans-serif;
             margin: auto;
             padding: 16px;
-
             border-radius: 12px;
             max-width: 400px;
         }
@@ -292,16 +314,17 @@
         }
 
         .game-btn {
-            background-color: #222;
-            color: yellow;
-            border: 2px solid yellow;
-            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(8, 18, 40, 0.95), rgba(34, 13, 62, 0.94));
+            color: #ffe37b;
+            border: 2px solid #71f0ff;
+            border-radius: 12px;
             margin-left: 10px;
             padding: 10px 10px;
             font-size: 14px;
             font-weight: 800;
             cursor: pointer;
             position: relative;
+            box-shadow: 0 0 16px rgba(108, 242, 255, 0.24);
         }
 
         .game-btn::after {
@@ -456,13 +479,13 @@
 
 
         .pointsp {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             gap: 22px;
-            white-space: nowrap;
 
-            margin: 10px auto;
-            padding: 12px 28px;
+
+            margin: 10px 0;
+            padding: 12px 12px;
 
             background: linear-gradient(145deg, rgba(5, 10, 30, 0.9), rgba(10, 20, 60, 0.85));
             border: 2px solid rgba(120, 180, 255, 0.6);
@@ -481,15 +504,15 @@
 
 
         .pointsp .pointspan {
-            font-size: 22px;
+            font-size: 1.5rem;
             font-weight: bold;
-            color: yellow;
-            text-shadow: 0 0 10px rgba(255, 216, 77, 0.9);
+            color: #ffe37b;
+            text-shadow: 0 0 10px rgba(255, 227, 123, 0.9);
         }
 
 
         .pointsp .bluepointsspan {
-            font-size: 22px;
+            font-size: 1.5rem;
             font-weight: bold;
             color: #4dc3ff;
             text-shadow: 0 0 10px rgba(77, 195, 255, 0.9);
@@ -533,13 +556,12 @@
             width: 30px;
             height: 30px;
             border-radius: 6px;
-            background: #1c2230;
-            /* dark space panel */
-            border: 1px solid #3a4156;
-            /* subtle edge */
-            color: #cfd6e6;
+            background: linear-gradient(135deg, rgba(11, 23, 46, 0.98), rgba(36, 14, 64, 0.96));
+            border: 1px solid rgba(108, 242, 255, 0.45);
+            color: #dcefff;
             font-size: 18px;
             cursor: pointer;
+            box-shadow: 0 0 12px rgba(108, 242, 255, 0.18);
         }
 
         .leftbtn::before {
@@ -552,13 +574,12 @@
 
         .leftbtn:hover,
         .rightbtn:hover {
-            background: #242b3d;
-            /* very subtle feedback */
+            background: linear-gradient(135deg, rgba(23, 44, 83, 0.98), rgba(63, 21, 93, 0.96));
         }
 
         .leftbtn:active,
         .rightbtn:active {
-            background: #141926;
+            background: linear-gradient(135deg, rgba(7, 17, 35, 0.98), rgba(26, 9, 45, 0.96));
         }
 
 
@@ -568,9 +589,101 @@
 
 
         @media (max-width: 1200px) {
-            .slide-btn {
+
+
+            .gamewincheckcontainer {
+                font-size: 12px;
+            }
+
+
+            .pointsp {
+                font-size: 12px;
+                gap: 1px;
+            }
+
+            .tutorial-wrapper {
+                position: absolute;
+                bottom: -300px;
+                left: 50%;
+
+                transform: translateX(-50%);
+                z-index: 999;
+                width: fit-content;
+            }
+
+
+            .tutorial-container {
+                left: 0 !important;
+                top: 0 !important;
+            }
+
+            .container2 {
+                left: -35px !important;
+            }
+
+
+
+            #homepagebtn {
+                width: 20vw;
+            }
+
+
+
+            .tutorial.active {
+                display: block;
+            }
+
+            .leftbtncontainer {
                 display: none;
             }
+
+            .rightbtncontainer {
+                display: none;
+            }
+
+
+        }
+
+        @media(max-width:800px) {
+            .blueyellowpointsdiv {
+                white-space: normal !important;
+
+            }
+
+            .gamewincheckcontainer {
+                width: 250px;
+                font-size: 10px;
+            }
+
+            #HomepageBtn {
+                width: 30vw !important;
+            }
+
+
+
+
+        }
+
+        @media(max-width:600px) {
+
+
+            .gamewincheckcontainer {
+                width: 220px;
+
+            }
+
+            .pause-container {
+                margin-right: 10vw;
+            }
+
+            .resume-icon {
+                margin-right: 10vw;
+            }
+        }
+
+
+        .topbar {
+            margin-left: 10%;
         }
     </style>
 
@@ -582,10 +695,8 @@
 
 <body>
     <div class="pointsdiv">
-        <div style="display: flex;">
-            <p class="pointsp">Total yellow points: <span class="pointspan">0</span>
-                <span>total blue points <span class="bluepointsspan">0</span></span>
-            <div class="tp-meter" id="tpMeter">
+        <div class="topbar" style="display: flex; margin-right: 10vw; ">
+            <div class="tp-meter" id="tpMeter" style="width: 30%; ">
                 <p class="teleporttext">Teleport:</p>
                 <div class="tp-segment"></div>
                 <div class="tp-segment"></div>
@@ -593,19 +704,39 @@
                 <div class="tp-segment"></div>
                 <div class="tp-segment"></div>
             </div>
-            </p>
+            <div class="blueyellowpointsdiv" style; margin-top: 0%; white-space: nowrap;">
+                <p class="pointsp" style="width: fit-content;">
+                    <span>
+                        Total yellow points:
+                        <span class="pointspan">0</span>
+                    </span>
+
+                    <span>
+                        Total blue points:
+                        <span class="bluepointsspan">0</span>
+                    </span>
+                </p>
+            </div>
+
         </div>
-        <p class="" style="color: red; margin-top:-5px">
 
-            <span class="cross">❌</span>
-            <span class="ifpassedcheck">you need <span class="pointsneeded">0</span> yellow points to pass</span>
+        <div class="gamewincheckcontainer" style="color: red; margin-top: 0%; display: flex;  gap: 20px;">
 
-            <span class="bluepointsneededcheck" style="margin-left: 5%; color:red "><span class="cross2">❌</span>you
-                need
-                <span class="bluepointsneededspan">0</span> blue points to
-                pass
-            </span>
-        </p>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span class="cross">❌</span>
+                <span class="ifpassedcheck">
+                    you need <span class="pointsneeded">0</span> yellow points to pass
+                </span>
+            </div>
+
+            <div class="bluepointsneededcheck" style="display: flex; align-items: center; gap: 6px;">
+                <span class="cross2">❌</span>
+                <span class="ifpassedcheck">
+                    you need <span class="bluepointsneededspan">0</span> blue points to pass
+                </span>
+            </div>
+
+        </div>
 
     </div>
     <div class=" upload select">
@@ -625,51 +756,57 @@
             music to
             get started</div>
         <div class="mustbe">⚠️Warning:must be .mp3 file</div>
-        <div class="tutorial-container" style="width:fit-content; position: relative; left:80%; top:-80px">
-            <button class="tutorialbtn"><span class="exclaimation">!!</span>tutorial</button>
-            <div class="tutorial" style="display: none;">
 
-                <div class="container2" style="width: 200px">
-                    <div class="allslide">
-                        <div class="slide">
-                            <img src="uploadmusic.PNG" width="200px" height="200px" />
+        <div class="tutorial-wrapper" style="position: relative;">
+            <div class="tutorial-container" style="width:fit-content; position: relative; left:80%; top:-100px; ">
+                <button class="tutorialbtn"><span class="exclaimation">!!</span>tutorial</button>
+                <div class="tutorial" style="display: none;">
+
+                    <div class="container2" style="width: 200px; right: -2.5vw">
+                        <div class="allslide">
+                            <div class="slide">
+                                <img src="uploadmusic.PNG" width="200px" height="200px" />
+                            </div>
+                            <div class="slide">
+                                <img src="wasdfor.PNG" width="200px" height="200px" />
+                            </div>
+                            <div class="slide">
+                                <img src="dodgesound4.PNG" width="200px" height="200px" />
+                            </div>
+                            <div class="slide">
+                                <img src="contacting yellow.PNG" width="200px" height="200px" />
+                            </div>
+                            <div class="slide">
+                                <img src="bluepoints2.PNG" width="200px" height="200px" />
+                            </div>
+                            <div class="slide">
+                                <img src="tpinstructionfinal.PNG" width="200px" height="200px" />
+                            </div>
+
                         </div>
-                        <div class="slide">
-                            <img src="wasdfor.PNG" width="200px" height="200px" />
-                        </div>
-                        <div class="slide">
-                            <img src="dodgesound4.PNG" width="200px" height="200px" />
-                        </div>
-                        <div class="slide">
-                            <img src="contacting yellow.PNG" width="200px" height="200px" />
-                        </div>
-                        <div class="slide">
-                            <img src="bluepoints2.PNG" width="200px" height="200px" />
-                        </div>
-                        <div class="slide">
-                            <img src="tpinstructionfinal.PNG" width="200px" height="200px" />
+
+                        <div class="indicator">
+                            <span class="active"></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </div>
 
                     </div>
-
-                    <div class="indicator">
-                        <span class="active"></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-
                 </div>
             </div>
+
+            <div class="leftbtncontainer" style="position: absolute; right:22.4vw; top:49%">
+                <button class="slide-btn leftbtn" style="visibility: hidden;"></button>
+            </div>
+            <div class="rightbtncontainer" style="position: absolute; right:6.2vw; top: 49%">
+                <button class="slide-btn rightbtn" style="visibility: hidden;"></button>
+            </div>
+
         </div>
-        <div style="position: fixed; left:79%; top:49%">
-            <button class="slide-btn leftbtn" style="visibility: hidden;"></button>
-        </div>
-        <div style="position: fixed; left: 90%; top:49%">
-            <button class="slide-btn rightbtn" style="visibility: hidden;"></button>
-        </div>
+
         <div class="defaultaudiocontainer" style="margin-top: 20px;">
             <p class="song-instruction">Don't got songs? Use some of the songs here</p>
             <div style="height:auto;" class="song-container">
@@ -690,31 +827,31 @@
         </div>
 
         <div class="upload-result"></div>
-        <div style="display:none" class="pause-container">
-            <div class="pause-icon">
+        <div style="display:none; margin-right:5vw" class="pause-container">
+            <div class="pause-icon" style="margin-right:-3vw; margin-top: 7vh">
                 <i class="fa-solid fa-pause"></i>
             </div>
 
         </div>
 
-        <div style="display: none;" class="resume-icon">
+        <div style="display: none;margin-left:-3vw; margin-top: 7vh " class="resume-icon">
             <i class="fa-solid fa-play"></i>
         </div>
 
 
     </div>
 
-    <div class="gameover" style="display:none; height:auto;">
+    <div class="gameover" style="display:none; height:auto; margin-top:15vh">
 
         <div class="container" style="padding: 1px;">
             <h2 class="gameover-text">Game over</h2>
             <p style="margin-top: 80px" class="percentdone"></p>
-            <button id="restart-game">Restart game</button>
+            <button id="restart-game" style="width: 90%">Restart game</button>
         </div>
 
     </div>
 
-    <div class="pause-page">
+    <div class="pause-page" style="margin-top: 15vh">
 
         <div class="pause-page-instruction">
             <p>you paused the game</p>
@@ -733,7 +870,8 @@
 
     </div>
 
-    <div class="finish-page" style="display: none;background-color: gray;">
+
+    <div class="finish-page" style="display: none; margin-top: 40vh">
         <p class="finish-page-p"></p>
         <div style="display:flex">
             <button id="restart-game2">Restart game</button>
@@ -741,7 +879,7 @@
 
     </div>
 
-    <canvas>
+    <canvas style="margin-top: 9vh;">
 
     </canvas>
 
@@ -765,7 +903,7 @@
         <div class="numneedtoclick" style="display: none;"></div>
 
         <div class="gobacktohomecontainer">
-            <button id="HomepageBtn" style="display: none">
+            <button id="HomepageBtn" style="display: none; width: 15vw">
                 go back to Home page
             </button>
         </div>
@@ -823,6 +961,8 @@
         const bluepointsneededspan = document.querySelector(".bluepointsneededspan")
         const bluepointsspan = document.querySelector(".bluepointsspan")
         let nameofthedefaultsong = ""
+
+        const tutorialwrapper = document.querySelector(".tutorial-wrapper")
 
         const leftbtn = document.querySelector(".leftbtn")
         const rightbtn = document.querySelector(".rightbtn")
@@ -921,8 +1061,8 @@
         let bullets = []
         let initialinit = true;
 
-        let climaxoverlast3s = []
-        let checkevery1s = 0.6;
+
+        let checkevery7s = 7;
         let lastchecktime = 0
 
 
@@ -966,6 +1106,9 @@
         };
 
         let stage = 0;
+        let previousmaxvolume = 0;
+        let currentmaxvolume = 0;
+
         lastupdatebackgroundcolortime = 0;
         let targetColor = targetColors[0];
 
@@ -1174,6 +1317,8 @@
             leftbtn.style.visibility = "hidden"
             rightbtn.style.visibility = "hidden"
 
+            tutorialwrapper.style.visibility = "hidden"
+
             pointsneed.innerHTML = pointstopassLevel();
             bluepointsneededspan.innerHTML = bluepointstopassLevel();
         });
@@ -1260,6 +1405,8 @@
             homebtn.style.display = "none";
             finishpage.style.display = "none";
             pause_page.style.display = "none";
+            tutorialwrapper.style.visibility = "visible"
+
 
             teleportEnabled = false;
             baseSpeed = 40
@@ -1591,6 +1738,8 @@
 
 
             stage = 0;
+
+
             lastupdatebackgroundcolortime = 0;
             targetColor = targetColors[0];
 
@@ -1621,9 +1770,7 @@
             bulletfrequencyinterval = 10;
             initialinit = true;
 
-
-            climaxoverlast3s = []
-            checkevery1s = 1;
+            checkevery7s = 7;
             lastchecktime = 0
 
             bullets = [];
@@ -1796,43 +1943,82 @@
 
         function Checkclimaxreached() {
 
-            let total = 0
-            if (climaxoverlast3s.length >= 5) {
 
-                for (let i = 0; i < 5; i++) {
-                    total += climaxoverlast3s[i];
-                }
-                let averageMusicvolume = Math.floor(total / 5);
-                if (averageMusicvolume < 190) {
-                    stage = 1
-                } else if (averageMusicvolume >= 190 && averageMusicvolume < 210) {
-                    stage = 1
-                } else if (averageMusicvolume >= 215 && averageMusicvolume < 225) {
-
-                    stage = 2
-                } else if (averageMusicvolume >= 230 && averageMusicvolume < 235) {
-
-                    stage = 3;
-                } else if (averageMusicvolume >= 235 && averageMusicvolume < 245) {
-
-                    stage = 4
+            if (previousmaxvolume < currentmaxvolume) {
+                let temp = stage + Math.floor(1 + Math.random() * 1)
+                if (temp > 4) {
+                    stage = 4;
                 } else {
-                    stage = 0
+                    stage = temp;
                 }
-
-                climaxoverlast3s = [];
-                return stage;
             }
 
+
+            if (previousmaxvolume >= currentmaxvolume) {
+                let temp = stage - Math.floor(1 + Math.random() * 1)
+                if (temp < 0) {
+                    stage = 0;
+                } else {
+                    stage = temp;
+                }
+            }
+            console.log(stage)
             return stage;
+
+
+            //     let total = 0;
+            //     if (climaxoverlast3s.length >= 5) {
+
+            //         for (let i = 0; i < 5; i++) {
+            //             total += climaxoverlast3s[i];
+            //         }
+            //         let averageMusicvolume = Math.floor(total / 5);
+            //         if (averageMusicvolume < 190) {
+            //             stage = 1
+            //         } else if (averageMusicvolume >= 190 && averageMusicvolume < 210) {
+            //             stage = 1
+            //         } else if (averageMusicvolume >= 215 && averageMusicvolume < 225) {
+
+            //             stage = 2
+            //         } else if (averageMusicvolume >= 230 && averageMusicvolume < 235) {
+
+            //             stage = 3;
+            //         } else if (averageMusicvolume >= 235 && averageMusicvolume < 245) {
+
+            //             stage = 4
+            //         } else {
+            //             stage = 0
+            //         }
+
+            //         climaxoverlast3s = [];
+            //         return stage;
+            //     }
+
+            //     return stage;
         }
 
 
 
-        function CheckifClimax() {
+        function CheckifClimax(shouldstay4 = false) {
+
+
+            if (shouldstay4) {
+                baseSpeed = 133
+                baseDiagSpeed = 106
+                ifclimaxreached = true;
+                bulletSpawnInterval = 5;
+                spawnfrequencyfortargetposition = 6
+                timesneedtoclick = 11
+                targetpositiondissapeartime = 9
+                if (bar5width < canvas.width / 2) {
+                    bar5width += 4;
+                }
+            }
+
 
             const reachedstage1 = Checkclimaxreached();
-            console.log(reachedstage1)
+
+
             if (reachedstage1 === 1) {
                 baseSpeed = 66.5
                 baseDiagSpeed = 53
@@ -2126,8 +2312,13 @@
                     }
 
                     if (audio.currentTime - lastfrequencyTime > 8) {
-                        lastfrequencyTime = audio.currentTime;
+                        if (audio.duration - audio.currentTime < last25percent) {
+                            CheckifClimax(true);
+
+                        }
                         CheckifClimax();
+
+                        lastfrequencyTime = audio.currentTime;
                     }
                     if (bulletSpawnInterval === 8) {
                         if (audio.currentTime - lastBulletSpawnTime > 6) {
@@ -2295,9 +2486,8 @@
 
 
 
-                if (audio.currentTime - lastupdatebackgroundcolortime > 10) {
+                if (audio.currentTime - lastupdatebackgroundcolortime > 2) {
                     targetColor = targetColors[stage] || targetColors[0];
-
 
 
 
@@ -2432,8 +2622,16 @@
                 pointspan.textContent = totalpoints;
 
 
-                if (audio.currentTime - lastchecktime > checkevery1s) {
-                    climaxoverlast3s.push(climax);
+                if (audio.currentTime - lastchecktime > checkevery7s) {
+                    //this is the originalspot for climaxoverlast3s
+                    previousmaxvolume = currentmaxvolume;
+
+                    // update current
+                    currentmaxvolume = Math.max(...dataArray);
+
+                    console.log(previousmaxvolume, currentmaxvolume)
+
+
                     lastchecktime = audio.currentTime
                 }
             }
