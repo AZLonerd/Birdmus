@@ -2066,8 +2066,7 @@
 
         function CheckifClimax(shouldstay4 = false) {
 
-            console.log("checkifclimax ran")
-            console.log(shouldstay4)
+
             if (shouldstay4) {
                 stage = 4;
                 baseSpeed = 133
@@ -2084,7 +2083,6 @@
 
 
                 const reachedstage1 = Checkclimaxreached();
-                console.log(reachedstage1)
 
 
                 if (reachedstage1 === 1) {
@@ -2389,7 +2387,7 @@
                         }
 
 
-                        console.log(stage)
+
                         lastfrequencyTime += 5;
                     }
                     if (bulletSpawnInterval === 8) {
@@ -2710,7 +2708,6 @@
                     // update current
                     currentmaxvolume = Math.max(...dataArray);
 
-                    console.log(previousmaxvolume, currentmaxvolume)
 
 
                     lastchecktime = audio.currentTime
